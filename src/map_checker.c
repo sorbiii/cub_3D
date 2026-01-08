@@ -21,7 +21,7 @@ void	incorect_chars_checker(t_data *d)
 			if (d->map[y][x] != "S" && d->map[y][x] != "N" && \
 			d->map[y][x] != "W" && d->map[y][x] != "E" && \
 			d->map[y][x] != "0" && d->map[y][x] != "1")
-				error_and_exit(INCORECT_CHAR);
+				error_and_exit(INCORRECT_CHAR);
 			else
 				x++;
 		}
