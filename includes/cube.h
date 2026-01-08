@@ -6,13 +6,14 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/08 23:01:28 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/08 23:21:32 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
+# include <fcntl.h>
 # include "libft/libft.h"
 
 typedef enum error
@@ -21,6 +22,7 @@ typedef enum error
     MALLOC_ERROR,
     WRONG_ARG_NUM,
     WRONG_EXTENTION,
+    FILE_OPEN_FAILURE,
 }   error;
 
 typedef struct s_data
@@ -32,4 +34,8 @@ typedef struct s_data
     int     plr_x;
     int     plr_y;
 }   t_data;
+
+// src/data_init.c
+void init_data(int argc, char **argv);
+
 #endif  
