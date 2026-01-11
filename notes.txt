@@ -1,8 +1,8 @@
 
 
 ## NEEDED  IN STRUCT ##
-~ map width
-~ map height
+~ map width same as below
+~ map height (real one, index + 1)
 ~ map in format(char ** with same lenght of every subline)
 ~ plr facing
 ~ plr x;
