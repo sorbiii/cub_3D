@@ -1,5 +1,11 @@
 #include "../includes/cube.h"
 
+int error_and_exit(error er)
+{
+	perror("Error");
+	exit(-1);
+}
+
 int is_valid_extention(char *s)
 {
 	char *pos;
@@ -17,15 +23,14 @@ int is_valid_extention(char *s)
 		return (-1);
 	return (0);
 }
-
-t_data *map_create(t_data *data, char **map)
+char **map_create(t_data *data, char **map)
 {
 	//trzeba sprawdzic tu kolorki teksturki potem dopiero mapę!
 	//sprawdzic jak poprzednia funkcja działa na pustych liniach
 	return (NULL);
 }
 
-t_data *create_map(t_data *data, int fd)
+char **create_map(t_data *data, int fd)
 {
 	char *buffer;
 	char *line;
@@ -61,9 +66,9 @@ void read_file(t_data *data, char *filename)
 void init_data(int argc, char **argv, t_data *data)
 {
 	if(argc != 2)
-		return (error_and_exit(WRONG_ARG_NUM));
+		 (error_and_exit(WRONG_ARG_NUM));
 	if (is_valid_extention(argv[1]) == -1)
-		return (error_and_exit(WRONG_EXTENTION));
+		 (error_and_exit(WRONG_EXTENTION));
 	read_file(data, argv[1]);
 	//pierwszy gnl - do kolorow i teksturek - WHITESPACES!
 	//sprawdzenie kolorow

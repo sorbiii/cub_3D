@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/08 23:21:32 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/09 12:04:08 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ typedef struct s_data
 }   t_data;
 
 // src/data_init.c
-void init_data(int argc, char **argv);
+void init_data(int argc, char **argv, t_data *data);
+void read_file(t_data *data, char *filename);
+char **create_map(t_data *data, int fd);
+char **map_create(t_data *data, char **map);
+int is_valid_extention(char *s);
+int error_and_exit(error er);
 
 #endif  
