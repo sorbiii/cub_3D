@@ -3,25 +3,20 @@
 void	error_and_exit(int i)
 {
 	if (i == INCORRECT_CHAR)
-	{
 		write(2, "INCORRECT CHAR\n", 15);
-		exit(-1);
-	}
-	if (i == MALLOC_ERROR)
-	{
+	else if (i == MALLOC_ERROR)
 		write(2, "MALLOC ERROR\n", 14);
-		exit(-1);
-	}
-	if (i == TOO_MANY_PLRS)
-	{
+	else if (i == TOO_MANY_PLRS)
 		write(2, "WRONG AMOUNT OF PLAYERS\n", 25);
-		exit(-1);
-	}
-	if (i == MAP_ERROR)
-	{
+	else if (i == MAP_ERROR)
 		write(2, "MAP UNCLOSED\n", 13);
-		exit(-1);
-	}
+	else if (i == FILE_OPEN_FAILURE)
+		write(2, "ERROR WHILE OPENING FILE", 24);
+	else if (i == WRONG_ARG_NUM)
+		write(2, "WRONG NUMBER OF ARGUMENTS", 25);
+	else if (i == WRONG_EXTENTION)
+		write(2, "WRONG EXTENTION", 15);
+	exit(-1);
 }
 
 char	**copy_map(t_data *map)
