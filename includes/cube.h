@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/12 19:05:34 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/13 00:38:16 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void read_file(t_data *data, char *filename);
 char **create_map(t_data *data, int fd);
 char **map_convert(t_data *data, char **map);
 void extract_textures_colors(t_data *data, char **map);
-int is_valid_extention(char *s);
+int is_valid_extention(char *s, char *extention, int extention_len);
 
 
 int		map_close_helper(char **m, int y, int x);

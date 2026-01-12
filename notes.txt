@@ -7,3 +7,11 @@
 ~ plr facing
 ~ plr x;
 ~ plr y;
+
+
+TODO:
+make extention and open file checker for textures - nice
+parse rgb colors 
+parse map
+check if map is at the end 
+valgrind - there are a lot of leaks 
