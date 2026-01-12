@@ -1,7 +1,8 @@
 NAME        = cub_3d
 
 CC          = gcc
-CFLAGS      = -Wall -Wextra -Werror -g -I includes -I includes/libft -g
+#CFLAGS      = -Wall -Wextra -Werror -g -I includes -I includes/libft -g
+CFLAGS      = -g -I includes -I includes/libft -g
 
 LIBFT_DIR   = includes/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
@@ -11,7 +12,7 @@ MLX_LIB     = $(MLX_DIR)/libmlx.a
 MLX_FLAGS   = -lXext -lX11
 
 SRC_DIR     = src
-SRC_FILES   = main.c src/map_checker.c src/utils.c
+SRC_FILES   = main.c src/map_checker.c src/utils.c src/data_init.c
 OBJ_FILES   = $(SRC_FILES:.c=.o)
 
 %.o: $(SRC_DIR)/%.c
