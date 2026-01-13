@@ -10,8 +10,9 @@
 
 
 TODO:
-make extention and open file checker for textures - nice
-parse rgb colors 
 parse map
-check if map is at the end 
+parse rgb colors 
 valgrind - there are a lot of leaks 
+make extention and open file checker for textures - nice
+check if map is at the end - nice
+count map size - nice

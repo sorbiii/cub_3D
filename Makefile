@@ -12,7 +12,7 @@ MLX_LIB     = $(MLX_DIR)/libmlx.a
 MLX_FLAGS   = -lXext -lX11
 
 SRC_DIR     = src
-SRC_FILES   = main.c src/map_checker.c src/utils.c src/data_init.c
+SRC_FILES   = main.c src/map_checker.c src/utils.c src/data_init.c src/data_init_utils.c src/extract_colors_textures.c
 OBJ_FILES   = $(SRC_FILES:.c=.o)
 
 %.o: $(SRC_DIR)/%.c

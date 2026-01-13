@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/13 00:38:16 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/13 14:27:10 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef enum error
     FILE_OPEN_FAILURE,
     TOO_MANY_PLRS,
 	MAP_ERROR,
+    MAP_NOT_END,
 }   error;
 
 typedef struct s_data
@@ -49,8 +50,21 @@ void init_data(int argc, char **argv, t_data *data);
 void read_file(t_data *data, char *filename);
 char **create_map(t_data *data, int fd);
 char **map_convert(t_data *data, char **map);
-void extract_textures_colors(t_data *data, char **map);
-int is_valid_extention(char *s, char *extention, int extention_len);
+
+// src/data_init_utils.c
+char *trim_spaces(const char *s);
+void null_struct(t_data *data);
+void check_texture_extention(char *s);
+int is_valid_map_extention(char *s, char *extention, int extention_len);
+//zmienic na bez map^
+void	count_map_size(t_data *data, char **map, int start_idx);
+
+// src/extract_colors_textures.c
+int parse_rgb(char *s);
+void extract_colors_to_struct(char *line, int *num_of_elems, int *color);
+void extract_textures_to_struct(char *line, int *num_of_elems, char **texture);
+void extract_utils(t_data *data, char *line, int *num_of_elems);
+int extract_textures_colors(t_data *data, char **map);
 
 
 int		map_close_helper(char **m, int y, int x);
