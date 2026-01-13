@@ -16,7 +16,7 @@ void null_struct(t_data *data)
 	data->south_texture = NULL;
 	data->west_texture = NULL;
 	data->east_texture = NULL;
-	data->f_color = -1;
+	data->f_color = -1; 
 	data->c_color = -1;
 }
 
