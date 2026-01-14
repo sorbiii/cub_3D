@@ -11,11 +11,11 @@ void	error_and_exit(int i)
 	else if (i == MAP_ERROR)
 		write(2, "MAP UNCLOSED\n", 13);
 	else if (i == FILE_OPEN_FAILURE)
-		write(2, "ERROR WHILE OPENING FILE", 24);
+		write(2, "ERROR WHILE OPENING FILE\n", 25);
 	else if (i == WRONG_ARG_NUM)
-		write(2, "WRONG NUMBER OF ARGUMENTS", 25);
+		write(2, "WRONG NUMBER OF ARGUMENTS\n", 26);
 	else if (i == WRONG_EXTENTION)
-		write(2, "WRONG EXTENTION", 15);
+		write(2, "WRONG EXTENTION\n", 16);
 	exit(-1);
 }
 

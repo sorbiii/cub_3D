@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/13 14:27:10 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/14 15:52:08 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int is_valid_map_extention(char *s, char *extention, int extention_len);
 void	count_map_size(t_data *data, char **map, int start_idx);
 
 // src/extract_colors_textures.c
-int parse_rgb(char *s);
+int parse_rgb(char *s, int i, int res, char *trimed);
 void extract_colors_to_struct(char *line, int *num_of_elems, int *color);
 void extract_textures_to_struct(char *line, int *num_of_elems, char **texture);
 void extract_utils(t_data *data, char *line, int *num_of_elems);
@@ -75,6 +75,9 @@ void	is_map_closed(char **m, int x, int y, int heigh);
 void	error_and_exit(int i);
 char	**copy_map(t_data *map);
 int		is_valid_char(char c);
+void	clean_map_copy(char **map);
+char	*str_whitespace_cleaner(char *s, int i);
+
 
 #endif  
 
