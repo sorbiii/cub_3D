@@ -2,7 +2,7 @@ NAME        = cub_3d
 
 CC          = gcc
 #CFLAGS      = -Wall -Wextra -Werror -g -I includes -I includes/libft -g
-CFLAGS      = -g -I includes -I includes/libft -g
+CFLAGS      = -g -I includes -I includes/libft -g -fPIE
 
 LIBFT_DIR   = includes/libft
 LIBFT       = $(LIBFT_DIR)/libft.a

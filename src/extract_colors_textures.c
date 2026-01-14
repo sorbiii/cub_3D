@@ -6,19 +6,33 @@ int parse_rgb(char *s, int i, int res, char *trimed)
 	int g;
 	int b;
 	char **nums;
-	
+	int result;
+	int j;
+
 	trimed = str_whitespace_cleaner(s, i);
 	nums = ft_split(trimed, ',');
 	free(trimed);
-	if (!nums)
+	if (!nums || !nums[0] || !nums[1] || !nums[2])
+	{
+		if (nums)
+		{
+			j = 0;
+			while (nums[j])
+				free(nums[j++]);
+			free(nums);
+		}
 		error_and_exit(MALLOC_ERROR);
+	}
 	r = ft_atoi(nums[0]);
 	g = ft_atoi(nums[1]);
 	b = ft_atoi(nums[2]);
-	res = (r << 16) | (g << 8) | b;
-	printf("%d", res);
-	return (res);
-	return (0);
+	result = (r << 16) | (g << 8) | b;
+	printf("%d", result);
+	j = 0;
+	while (nums[j])
+		free(nums[j++]);
+	free(nums);
+	return (result);
 }
 
 void extract_colors_to_struct(char *line, int *num_of_elems, int *color) //zmienic map error na odpowiednie dla erroru

@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/14 15:29:43 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/01/14 16:13:47 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*str_whitespace_cleaner(char *s, int i)
 	count = 0;
 	while (s[i])
 	{
-		if (s[i] > 13 && s[i] < 7 && s[i] != ' ')
+		if (s[i] != ' ' && s[i] != '\t')
 			count++;
 		i++;
 	}
@@ -45,11 +45,10 @@ char	*str_whitespace_cleaner(char *s, int i)
 	count = 0;
 	while (s[i])
 	{
-		if (s[i] > 13 && s[i] < 7 && s[i] != ' ')
+		if (s[i] != ' ' && s[i] != '\t')
 			str[count++] = s[i];
 		i++;
 	}
 	str[count] = '\0';
-	free(s);
 	return (str);
 }
