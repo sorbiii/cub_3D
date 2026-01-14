@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/14 15:52:08 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/01/14 16:24:50 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	**copy_map(t_data *map);
 int		is_valid_char(char c);
 void	clean_map_copy(char **map);
 char	*str_whitespace_cleaner(char *s, int i);
+void free_double_arr(char **arr);   
 
 
 #endif  

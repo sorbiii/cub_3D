@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/14 16:13:47 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/01/14 16:24:39 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,15 @@ char	*str_whitespace_cleaner(char *s, int i)
 	}
 	str[count] = '\0';
 	return (str);
+}
+
+void free_double_arr(char **arr)
+{
+	int j;
+	
+	j = 0;
+	while (arr[j])
+		free(arr[j++]);
+	free(arr);
+	return ;
 }

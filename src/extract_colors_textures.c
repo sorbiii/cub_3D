@@ -1,22 +1,19 @@
 #include "../includes/cube.h"
 
-int parse_rgb(char *s, int i, int res, char *trimed)
+int parse_rgb(char *s, int j, int result, char *trimed)
 {
 	int r;
 	int g;
 	int b;
 	char **nums;
-	int result;
-	int j;
 
-	trimed = str_whitespace_cleaner(s, i);
+	trimed = str_whitespace_cleaner(s, 0);
 	nums = ft_split(trimed, ',');
 	free(trimed);
 	if (!nums || !nums[0] || !nums[1] || !nums[2])
 	{
 		if (nums)
 		{
-			j = 0;
 			while (nums[j])
 				free(nums[j++]);
 			free(nums);
@@ -27,11 +24,7 @@ int parse_rgb(char *s, int i, int res, char *trimed)
 	g = ft_atoi(nums[1]);
 	b = ft_atoi(nums[2]);
 	result = (r << 16) | (g << 8) | b;
-	printf("%d", result);
-	j = 0;
-	while (nums[j])
-		free(nums[j++]);
-	free(nums);
+	free_double_arr(nums);
 	return (result);
 }
 
