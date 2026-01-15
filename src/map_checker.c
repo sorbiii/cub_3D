@@ -49,12 +49,6 @@ void	is_map_closed(char **m, int x, int y, int heigh)
 			{
 				if (map_close_helper(m, y, x))
 					error_and_exit(MAP_ERROR);
-				//if (map_close_helper(m, y, x))
-				//	error_and_exit(MAP_ERROR);
-				//if (map_close_helper(m, y, x))
-				//	error_and_exit(MAP_ERROR);
-				//if (map_close_helper(m, y, x))
-				//	error_and_exit(MAP_ERROR);
 			}
 			x++;
 		}

@@ -1,8 +1,31 @@
 #include "../includes/cube.h"
 
-int parse_rgb(char *s)
+int parse_rgb(char *s, int j, int result, char *trimed)
 {
-	return 0;
+	int r;
+	int g;
+	int b;
+	char **nums;
+
+	trimed = str_whitespace_cleaner(s, 0);
+	nums = ft_split(trimed, ',');
+	free(trimed);
+	if (!nums || !nums[0] || !nums[1] || !nums[2])
+	{
+		if (nums)
+		{
+			while (nums[j])
+				free(nums[j++]);
+			free(nums);
+		}
+		error_and_exit(MALLOC_ERROR);
+	}
+	r = ft_atoi(nums[0]);
+	g = ft_atoi(nums[1]);
+	b = ft_atoi(nums[2]);
+	result = (r << 16) | (g << 8) | b;
+	free_double_arr(nums);
+	return (result);
 }
 
 void extract_colors_to_struct(char *line, int *num_of_elems, int *color) //zmienic map error na odpowiednie dla erroru
@@ -16,9 +39,9 @@ void extract_colors_to_struct(char *line, int *num_of_elems, int *color) //zmien
 	}
 	val = trim_spaces(line + 1);
 	if (val)
-		*color = parse_rgb(val);
+		*color = parse_rgb(val, 0, 0, NULL);
 	else
-		*color = parse_rgb("");
+		*color = parse_rgb("", 0, 0, NULL);
 	if (val)
 		free(val);
 	if (*color == -1)
