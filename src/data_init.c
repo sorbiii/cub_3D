@@ -1,4 +1,18 @@
-#include "../includes/cube.h"
+#include "../includes/cube.h" 
+
+// void	print_char_array(char **arr)
+// {
+// 	int i;
+
+// 	if (!arr)
+// 		return;
+// 	i = 0;
+// 	while (arr[i])
+// 	{
+// 		printf("dupa%s dupa\n", arr[i]);
+// 		i++;
+// 	}
+// }
 
 char **map_convert(t_data *data, char **map)
 {
@@ -6,20 +20,24 @@ char **map_convert(t_data *data, char **map)
 	int start_idx;
 	char **new_map;
 
-	i = 0;
 	start_idx = extract_textures_colors(data, map);
 	count_map_size(data, map, start_idx);
-	new_map = (char **)malloc(sizeof(char *) * data->m_witdh);
-	while (i < data->m_witdh)
+	new_map = malloc(sizeof(char *) * (data->m_witdh + 1));
+	if (!new_map)
+		return (NULL);
+	i = 0;
+	while (i < data->m_witdh && map[start_idx + i])
 	{
-		new_map[i] = (char *)malloc(sizeof(char *) * data->m_heigh);
-		//one line - wszystko do data->map wpisac po linijce 
+		new_map[i] = ft_strdup(map[start_idx + i]);
+		if (!new_map[i])
+			return (NULL);
+		ft_memset(new_map[i], ' ', data->m_witdh);
+		ft_memcpy(new_map[i], map[start_idx + i], ft_strlen(map[start_idx + i]));
+		new_map[i][data->m_witdh] = '\0';
 		i++;
 	}
-	//free map
-	//map trzeba teraz dac do data->map i bedzie klasa
-	return (NULL);
-	//return new_map
+	new_map[i] = NULL;
+	return (new_map);
 }
 
 char **create_map(t_data *data, int fd)
