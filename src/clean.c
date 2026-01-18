@@ -3,27 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/14 16:24:39 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/01/15 18:57:27 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-void	clean_map_copy(char **map)
+void clean(t_data *data)
 {
-    int	i;
-    
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
-	return ;
+	free_double_arr(data->map);
+	free(data->north_texture);
+	free(data->south_texture);
+	free(data->west_texture);
+	free(data->east_texture);
+		
 }
 
 char	*str_whitespace_cleaner(char *s, int i)

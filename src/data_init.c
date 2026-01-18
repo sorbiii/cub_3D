@@ -22,21 +22,22 @@ char **map_convert(t_data *data, char **map)
 
 	start_idx = extract_textures_colors(data, map);
 	count_map_size(data, map, start_idx);
-	new_map = malloc(sizeof(char *) * (data->m_witdh + 1));
+	new_map = malloc(sizeof(char *) * (data->m_height + 1));
 	if (!new_map)
 		return (NULL);
 	i = 0;
-	while (i < data->m_witdh && map[start_idx + i])
+	while (i <= data->m_height && map[start_idx + i])
 	{
 		new_map[i] = ft_strdup(map[start_idx + i]);
 		if (!new_map[i])
-			return (NULL);
-		ft_memset(new_map[i], ' ', data->m_witdh);
+			return (clean(data), NULL);
+		ft_memset(new_map[i], ' ', data->m_width);
 		ft_memcpy(new_map[i], map[start_idx + i], ft_strlen(map[start_idx + i]));
-		new_map[i][data->m_witdh] = '\0';
+		new_map[i][data->m_width] = '\0';
 		i++;
 	}
 	new_map[i] = NULL;
+	free_double_arr(map);
 	return (new_map);
 }
 
@@ -80,5 +81,4 @@ void init_data(int argc, char **argv, t_data *data)
 	if (is_valid_map_extention(argv[1], ".cub", ft_strlen(".cub")) == -1)
 		 (error_and_exit(WRONG_EXTENTION));
 	read_file(data, argv[1]);
-	//zparsowanie mapy - wyciagnac player, map width, height 
 }

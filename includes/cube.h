@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/14 16:24:50 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/01/15 19:16:54 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef enum error
 typedef struct s_data
 {
     char    **map;
-    int     m_heigh;
-    int     m_witdh;
+    int     m_height;
+    int     m_width;
     char    plr_facing; //N, S, W, E
     int     plr_x;
     int     plr_y;
@@ -75,10 +75,9 @@ void	is_map_closed(char **m, int x, int y, int heigh);
 void	error_and_exit(int i);
 char	**copy_map(t_data *map);
 int		is_valid_char(char c);
-void	clean_map_copy(char **map);
 char	*str_whitespace_cleaner(char *s, int i);
 void free_double_arr(char **arr);   
-
+void clean(t_data *data);
 
 #endif  
 

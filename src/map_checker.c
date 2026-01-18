@@ -10,13 +10,13 @@ int	map_checker(t_data *data)
 	m_cpy = copy_map(data);
 	if (!m_cpy)
 		error_and_exit(MALLOC_ERROR);
-	is_map_closed(m_cpy, 0, 0, data->m_heigh);
+	is_map_closed(m_cpy, 0, 0, data->m_height);
 	return (0);
 }
 
 void	incorect_chars_checker(t_data *d, int y, int x, int count)
 {
-	while (y <= d->m_heigh && d->map[y])
+	while (y <= d->m_height && d->map[y])
 	{
 		x = 0;
 		while (d->map[y][x])

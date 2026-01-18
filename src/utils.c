@@ -25,10 +25,10 @@ char	**copy_map(t_data *map)
 	int		i;
 
 	i = 0;
-	mapcpy = calloc(map->m_heigh + 1, sizeof(char *));
+	mapcpy = calloc(map->m_height + 1, sizeof(char *));
 	if (!mapcpy)
 		return (NULL);
-	while (i < map->m_heigh)
+	while (i < map->m_height)
 	{
 		mapcpy[i] = ft_strdup(map->map[i]);
 		if (!mapcpy[i])

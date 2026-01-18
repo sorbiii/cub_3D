@@ -57,8 +57,8 @@ void count_map_size(t_data *data, char **map, int start_idx)
 
 	if (!data || !map)
 		return ;
-	data->m_witdh = 0;
-	data->m_heigh = 0;
+	data->m_width = 0;
+	data->m_height = 0;
 	i = start_idx; //start after textures, colors
 	while (map[i])
 	{
@@ -81,9 +81,9 @@ void count_map_size(t_data *data, char **map, int start_idx)
 			break;
 		}
 		free(trim);
-		if ((int)ft_strlen(line) > data->m_witdh)
-			data->m_witdh = ft_strlen(line);
-		data->m_heigh++;
+		if ((int)ft_strlen(line) > data->m_width)
+			data->m_width = ft_strlen(line);
+		data->m_height++;
 		i++;
 	}
 }
