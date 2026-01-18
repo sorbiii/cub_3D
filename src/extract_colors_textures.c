@@ -1,13 +1,13 @@
 #include "../includes/cube.h"
 
-int parse_rgb(char *s, int j, int result, char *trimed)
+int parse_rgb(t_data *data, char *s, int j, int result, char *trimed)
 {
 	int r;
 	int g;
 	int b;
 	char **nums;
 
-	trimed = str_whitespace_cleaner(s, 0);
+	trimed = str_whitespace_cleaner(data, s, 0);
 	nums = ft_split(trimed, ',');
 	free(trimed);
 	if (!nums || !nums[0] || !nums[1] || !nums[2])
@@ -18,7 +18,7 @@ int parse_rgb(char *s, int j, int result, char *trimed)
 				free(nums[j++]);
 			free(nums);
 		}
-		error_and_exit(MALLOC_ERROR);
+		error_and_exit(MALLOC_ERROR, data);
 	}
 	r = ft_atoi(nums[0]);
 	g = ft_atoi(nums[1]);
@@ -28,31 +28,31 @@ int parse_rgb(char *s, int j, int result, char *trimed)
 	return (result);
 }
 
-void extract_colors_to_struct(char *line, int *num_of_elems, int *color) //zmienic map error na odpowiednie dla erroru
+void extract_colors_to_struct(t_data *data, char *line, int *num_of_elems, int *color)
 {
 	char *val;
 
 	if (*color != -1)
 	{
 		free(line);
-		error_and_exit(MAP_ERROR);
+		error_and_exit(MAP_ERROR, data);
 	}
 	val = trim_spaces(line + 1);
 	if (val)
-		*color = parse_rgb(val, 0, 0, NULL);
+		*color = parse_rgb(data, val, 0, 0, NULL);
 	else
-		*color = parse_rgb("", 0, 0, NULL);
+		*color = parse_rgb(data, "", 0, 0, NULL);
 	if (val)
 		free(val);
 	if (*color == -1)
 	{
 		free(line);
-		error_and_exit(MAP_ERROR);
+		error_and_exit(MAP_ERROR, data);
 	}
 	(*num_of_elems)++;
 }
 
-void extract_textures_to_struct(char *line, int *num_of_elems, char **texture)
+void extract_textures_to_struct(t_data *data, char *line, int *num_of_elems, char **texture)
 {
 	int fd;
 	char *val;
@@ -60,12 +60,12 @@ void extract_textures_to_struct(char *line, int *num_of_elems, char **texture)
 	if (!num_of_elems || !texture)
 	{
 		free(line);
-		error_and_exit(MAP_ERROR);
+		error_and_exit(MAP_ERROR, data);
 	}
 	if (*texture)
 	{
 		free(line);
-		error_and_exit(MAP_ERROR);
+		error_and_exit(MAP_ERROR, data);
 	}
 	val = trim_spaces(line + 2);
 	if (val)
@@ -75,7 +75,7 @@ void extract_textures_to_struct(char *line, int *num_of_elems, char **texture)
 	if (val)
 		free(val);
 	(*num_of_elems)++;
-	check_texture_extention(*texture);
+	check_texture_extention(data, *texture);
 }
 
 void extract_utils(t_data *data, char *line, int *num_of_elems)
@@ -83,17 +83,17 @@ void extract_utils(t_data *data, char *line, int *num_of_elems)
 	char *val;
 
 	if (ft_strncmp(line, "NO", 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
-			extract_textures_to_struct(line, num_of_elems, &data->north_texture);
+			extract_textures_to_struct(data, line, num_of_elems, &data->north_texture);
 	else if (ft_strncmp(line, "SO", 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
-		extract_textures_to_struct(line, num_of_elems, &data->south_texture);
+		extract_textures_to_struct(data, line, num_of_elems, &data->south_texture);
 	else if (ft_strncmp(line, "WE", 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
-		extract_textures_to_struct(line, num_of_elems, &data->west_texture);
+		extract_textures_to_struct(data, line, num_of_elems, &data->west_texture);
 	else if (ft_strncmp(line, "EA", 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
-		extract_textures_to_struct(line, num_of_elems, &data->east_texture);
+		extract_textures_to_struct(data, line, num_of_elems, &data->east_texture);
 	else if (line[0] == 'F' && (line[1] == ' ' || line[1] == '\t'))
-		extract_colors_to_struct(line, num_of_elems, &data->f_color);
+		extract_colors_to_struct(data, line, num_of_elems, &data->f_color);
 	else if (line[0] == 'C' && (line[1] == ' ' || line[1] == '\t'))
-		extract_colors_to_struct(line, num_of_elems, &data->c_color);
+		extract_colors_to_struct(data, line, num_of_elems, &data->c_color);
 }
 
 int extract_textures_colors(t_data *data, char **map)
@@ -121,6 +121,6 @@ int extract_textures_colors(t_data *data, char **map)
 		i++;
 	}
 	if (num_of_elems < 6)
-		error_and_exit(MAP_NOT_END);
+		error_and_exit(MAP_NOT_END, data);
 	return (i);
 }

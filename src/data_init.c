@@ -24,13 +24,13 @@ char **map_convert(t_data *data, char **map)
 	count_map_size(data, map, start_idx);
 	new_map = malloc(sizeof(char *) * (data->m_height + 1));
 	if (!new_map)
-		return (NULL);
+		return (free_double_arr(map), NULL);
 	i = 0;
-	while (i <= data->m_height && map[start_idx + i])
+	while (i < data->m_height && map[start_idx + i])
 	{
-		new_map[i] = ft_strdup(map[start_idx + i]);
+		new_map[i] = malloc(data->m_width + 1);
 		if (!new_map[i])
-			return (clean(data), NULL);
+			return (free_map_rows(new_map, i), free_double_arr(map), NULL);
 		ft_memset(new_map[i], ' ', data->m_width);
 		ft_memcpy(new_map[i], map[start_idx + i], ft_strlen(map[start_idx + i]));
 		new_map[i][data->m_width] = '\0';
@@ -70,15 +70,15 @@ void read_file(t_data *data, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		error_and_exit(FILE_OPEN_FAILURE);
+		error_and_exit(FILE_OPEN_FAILURE, data);
 	data->map = create_map(data, fd);
 }
 
 void init_data(int argc, char **argv, t_data *data)
 {
 	if(argc != 2)
-		 (error_and_exit(WRONG_ARG_NUM));
+		error_and_exit(WRONG_ARG_NUM, data);
 	if (is_valid_map_extention(argv[1], ".cub", ft_strlen(".cub")) == -1)
-		 (error_and_exit(WRONG_EXTENTION));
+		error_and_exit(WRONG_EXTENTION, data);
 	read_file(data, argv[1]);
 }

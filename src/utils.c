@@ -1,7 +1,17 @@
 #include "../includes/cube.h"
 
-void	error_and_exit(int i)
+void	error_and_exit(int i, t_data *data)
 {
+	if (data)
+	{
+		if (data->map)
+			free_double_arr(data->map);
+		free(data->north_texture);
+		free(data->south_texture);
+		free(data->west_texture);
+		free(data->east_texture);
+		free(data);
+	}
 	if (i == INCORRECT_CHAR)
 		write(2, "INCORRECT CHAR\n", 15);
 	else if (i == MALLOC_ERROR)
@@ -17,6 +27,13 @@ void	error_and_exit(int i)
 	else if (i == WRONG_EXTENTION)
 		write(2, "WRONG EXTENTION\n", 16);
 	exit(-1);
+}
+
+void	free_map_rows(char **new_map, int count)
+{
+	while (--count >= 0)
+		free(new_map[count]);
+	free(new_map);
 }
 
 char	**copy_map(t_data *map)

@@ -9,8 +9,9 @@ int	map_checker(t_data *data)
 	incorect_chars_checker(data, 0, 0, 0);
 	m_cpy = copy_map(data);
 	if (!m_cpy)
-		error_and_exit(MALLOC_ERROR);
-	is_map_closed(m_cpy, 0, 0, data->m_height);
+		error_and_exit(MALLOC_ERROR, data);
+	is_map_closed(data, m_cpy, 0, 0);
+	free_double_arr(m_cpy);
 	return (0);
 }
 
@@ -22,7 +23,7 @@ void	incorect_chars_checker(t_data *d, int y, int x, int count)
 		while (d->map[y][x])
 		{
 			if (is_valid_char(d->map[y][x]))
-				error_and_exit(INCORRECT_CHAR);
+				error_and_exit(INCORRECT_CHAR, d);
 			if (d->map[y][x] == 'S' || d->map[y][x] == 'E' || \
 				d->map[y][x] == 'N' || d->map[y][x] == 'W')
 			{
@@ -34,13 +35,13 @@ void	incorect_chars_checker(t_data *d, int y, int x, int count)
 		y++;
 	}
 	if (count != 1)
-		error_and_exit(TOO_MANY_PLRS);
+		error_and_exit(TOO_MANY_PLRS, d);
 	return ;
 }
 
-void	is_map_closed(char **m, int x, int y, int heigh)
+void	is_map_closed(t_data *data, char **m, int x, int y)
 {
-	while (m[y] && y <= heigh)
+	while (m[y] && y <= data->m_height)
 	{
 		x = 0;
 		while (m[y][x])
@@ -48,7 +49,7 @@ void	is_map_closed(char **m, int x, int y, int heigh)
 			if (m[y][x] == '0' || m[y][x] == 'P')
 			{
 				if (map_close_helper(m, y, x))
-					error_and_exit(MAP_ERROR);
+					error_and_exit(MAP_ERROR, data);
 			}
 			x++;
 		}

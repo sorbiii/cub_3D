@@ -20,14 +20,14 @@ void null_struct(t_data *data)
 	data->c_color = -1;
 }
 
-void check_texture_extention(char *s)
+void check_texture_extention(t_data *data, char *s)
 {
 	int fd;
 	if (is_valid_map_extention(s, ".xpm", ft_strlen(".xpm")) == -1)
-		 (error_and_exit(WRONG_EXTENTION));
+		error_and_exit(WRONG_EXTENTION, data);
 	fd = open(s, O_RDONLY);
 	if (fd == -1)
-		error_and_exit(FILE_OPEN_FAILURE);
+		error_and_exit(FILE_OPEN_FAILURE, data);
 }
 
 int is_valid_map_extention(char *s, char *extention, int extention_len)

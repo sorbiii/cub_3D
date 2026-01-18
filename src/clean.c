@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/15 18:57:27 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/18 15:52:40 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void clean(t_data *data)
 {
-	free_double_arr(data->map);
+	if (!data)
+		return ;
+	if (data->map)
+		free_double_arr(data->map);
 	free(data->north_texture);
 	free(data->south_texture);
 	free(data->west_texture);
 	free(data->east_texture);
-		
+	free(data);
 }
 
-char	*str_whitespace_cleaner(char *s, int i)
+char	*str_whitespace_cleaner(t_data *data, char *s, int i)
 {
 	char *str;
 	int count;
@@ -36,7 +39,7 @@ char	*str_whitespace_cleaner(char *s, int i)
 	}
 	str = malloc((count * sizeof(char)) + 1 );
 	if (!str)
-		error_and_exit(MALLOC_ERROR);
+		error_and_exit(MALLOC_ERROR, data);
 	i = 0;
 	count = 0;
 	while (s[i])

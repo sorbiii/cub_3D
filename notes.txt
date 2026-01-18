@@ -10,9 +10,9 @@
 
 
 TODO:
-parse map
-parse rgb colors 
-valgrind - there are a lot of leaks 
-make extention and open file checker for textures - nice
-check if map is at the end - nice
-count map size - nice
+norminette - some files has more arguments
+names of some functions should be changed 
+player facing, player x and player y
+textures cant be the same - check if they are
+ray casting
+map unclosed - leaki
