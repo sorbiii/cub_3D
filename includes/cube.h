@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/18 18:41:38 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/18 21:03:23 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 
 # include <fcntl.h>
 # include "libft/libft.h"
+# include "../minilibx-linux/mlx.h"
+
+# define WIDTH 1600
+# define HEIGHT 900
 
 typedef enum error
 {
-
     INCORRECT_CHAR,
     MALLOC_ERROR,
     WRONG_ARG_NUM,
@@ -28,6 +31,7 @@ typedef enum error
 	MAP_ERROR,
     MAP_NOT_END,
     WRONG_TEXTURE,
+    MLX_ERROR,
 }   error;
 
 typedef struct s_data
@@ -44,6 +48,15 @@ typedef struct s_data
     char    *east_texture;
     int     f_color;
     int     c_color;
+
+    //mlx
+    void	*mlx;
+	void	*win;
+	void	*img;
+    char	*data_addr;
+	int		bits_per_pixel;
+	int		line_size;
+	int		endian;
 }   t_data;
 
 // src/data_init.c
