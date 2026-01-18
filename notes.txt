@@ -8,11 +8,12 @@
 ~ plr x;
 ~ plr y;
 
+michał
+-> leaki przy errorze mapunclosed
+-> player facing, player x and player y
 
-TODO:
-norminette - some files has more arguments
-names of some functions should be changed 
-player facing, player x and player y
-textures cant be the same - check if they are
+natalia
+-> norminette - some files has more arguments
+-> names of some functions should be changed 
+
 ray casting
-map unclosed - leaki

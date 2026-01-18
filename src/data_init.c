@@ -21,6 +21,16 @@ char **map_convert(t_data *data, char **map)
 	char **new_map;
 
 	start_idx = extract_textures_colors(data, map);
+	if (start_idx == -1)
+	{
+		free_double_arr(map);
+		error_and_exit(MAP_NOT_END, data);
+	}
+	if (same_textures(data) == -1)
+	{
+		free_double_arr(map);
+		error_and_exit(WRONG_TEXTURE, data);
+	}
 	count_map_size(data, map, start_idx);
 	new_map = malloc(sizeof(char *) * (data->m_height + 1));
 	if (!new_map)

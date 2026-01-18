@@ -2,16 +2,7 @@
 
 void	error_and_exit(int i, t_data *data)
 {
-	if (data)
-	{
-		if (data->map)
-			free_double_arr(data->map);
-		free(data->north_texture);
-		free(data->south_texture);
-		free(data->west_texture);
-		free(data->east_texture);
-		free(data);
-	}
+	clean(data);
 	if (i == INCORRECT_CHAR)
 		write(2, "INCORRECT CHAR\n", 15);
 	else if (i == MALLOC_ERROR)
@@ -26,6 +17,8 @@ void	error_and_exit(int i, t_data *data)
 		write(2, "WRONG NUMBER OF ARGUMENTS\n", 26);
 	else if (i == WRONG_EXTENTION)
 		write(2, "WRONG EXTENTION\n", 16);
+	else if (i == WRONG_TEXTURE)
+		write(2, "SAME TEXTURES\n", 16);
 	exit(-1);
 }
 

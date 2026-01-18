@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/18 15:59:04 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/18 18:41:38 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum error
     TOO_MANY_PLRS,
 	MAP_ERROR,
     MAP_NOT_END,
+    WRONG_TEXTURE,
 }   error;
 
 typedef struct s_data
@@ -59,6 +60,9 @@ int is_valid_map_extention(char *s, char *extention, int extention_len);
 //zmienic na bez map^
 void	count_map_size(t_data *data, char **map, int start_idx);
 void	free_map_rows(char **new_map, int count);
+int ft_strcmp(const char *s1, const char *s2);
+int same_textures(t_data *data);
+int	check_no_duplicates(char *s1, char *s2, char *s3, char *s4);
 
 // src/extract_colors_textures.c
 int parse_rgb(t_data *data, char *s, int i, int res, char *trimed);

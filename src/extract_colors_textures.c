@@ -33,10 +33,7 @@ void extract_colors_to_struct(t_data *data, char *line, int *num_of_elems, int *
 	char *val;
 
 	if (*color != -1)
-	{
-		free(line);
 		error_and_exit(MAP_ERROR, data);
-	}
 	val = trim_spaces(line + 1);
 	if (val)
 		*color = parse_rgb(data, val, 0, 0, NULL);
@@ -45,10 +42,7 @@ void extract_colors_to_struct(t_data *data, char *line, int *num_of_elems, int *
 	if (val)
 		free(val);
 	if (*color == -1)
-	{
-		free(line);
 		error_and_exit(MAP_ERROR, data);
-	}
 	(*num_of_elems)++;
 }
 
@@ -58,15 +52,9 @@ void extract_textures_to_struct(t_data *data, char *line, int *num_of_elems, cha
 	char *val;
 
 	if (!num_of_elems || !texture)
-	{
-		free(line);
 		error_and_exit(MAP_ERROR, data);
-	}
 	if (*texture)
-	{
-		free(line);
 		error_and_exit(MAP_ERROR, data);
-	}
 	val = trim_spaces(line + 2);
 	if (val)
 		*texture = ft_strdup(val);
@@ -115,12 +103,13 @@ int extract_textures_colors(t_data *data, char **map)
 			if (line)
 				free(line);
 			i++;
+			continue;
 		}
 		extract_utils(data, line, &num_of_elems);
 		free(line);
 		i++;
 	}
 	if (num_of_elems < 6)
-		error_and_exit(MAP_NOT_END, data);
+		return (-1);
 	return (i);
 }
