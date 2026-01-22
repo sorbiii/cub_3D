@@ -20,7 +20,7 @@ char **map_convert(t_data *data, char **map)
 	int start_idx;
 	char **new_map;
 
-	start_idx = extract_textures_colors(data, map);
+	start_idx = extract_textures_and_colors(data, map);
 	if (start_idx == -1)
 	{
 		free_double_arr(map);
@@ -88,7 +88,7 @@ void init_data(int argc, char **argv, t_data *data)
 {
 	if(argc != 2)
 		error_and_exit(WRONG_ARG_NUM, data);
-	if (is_valid_map_extention(argv[1], ".cub", ft_strlen(".cub")) == -1)
+	if (is_valid_extention(argv[1], ".cub", ft_strlen(".cub")) == -1)
 		error_and_exit(WRONG_EXTENTION, data);
 	read_file(data, argv[1]);
 }

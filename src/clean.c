@@ -6,13 +6,13 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/18 15:52:40 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/22 12:25:23 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-void clean(t_data *data)
+void free_everything(t_data *data)
 {
 	if (!data)
 		return ;

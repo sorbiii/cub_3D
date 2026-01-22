@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/18 21:03:23 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/01/22 15:00:00 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ char **map_convert(t_data *data, char **map);
 char *trim_spaces(const char *s);
 void null_struct(t_data *data);
 void check_texture_extention(t_data *data, char *s);
-int is_valid_map_extention(char *s, char *extention, int extention_len);
-//zmienic na bez map^
+int is_valid_extention(char *s, char *extention, int extention_len);
 void	count_map_size(t_data *data, char **map, int start_idx);
 void	free_map_rows(char **new_map, int count);
 int ft_strcmp(const char *s1, const char *s2);
@@ -79,11 +78,15 @@ int	check_no_duplicates(char *s1, char *s2, char *s3, char *s4);
 
 // src/extract_colors_textures.c
 int parse_rgb(t_data *data, char *s, int i, int res, char *trimed);
-void extract_colors_to_struct(t_data *data, char *line, int *num_of_elems, int *color);
-void extract_textures_to_struct(t_data *data, char *line, int *num_of_elems, char **texture);
+void colors_to_struct(t_data *data, char *line, int *num_of_elems, int *color);
+void textures_to_struct(t_data *data, char *line, int *num_of_elems, char **texture);
 void extract_utils(t_data *data, char *line, int *num_of_elems);
-int extract_textures_colors(t_data *data, char **map);
+int extract_textures_and_colors(t_data *data, char **map);
 
+//src/control.c
+int close_window(void *param);
+int ft_key_press(int keycode, void *param);
+void mlx_control(t_data *data);
 
 int		map_close_helper(char **m, int y, int x);
 int		is_valid(char c);
@@ -95,7 +98,7 @@ char	**copy_map(t_data *map);
 int		is_valid_char(char c);
 char	*str_whitespace_cleaner(t_data *data, char *s, int i);
 void free_double_arr(char **arr);   
-void clean(t_data *data);
+void free_everything(t_data *data);
 
 #endif  
 

@@ -28,7 +28,7 @@ int parse_rgb(t_data *data, char *s, int j, int result, char *trimed)
 	return (result);
 }
 
-void extract_colors_to_struct(t_data *data, char *line, int *num_of_elems, int *color)
+void colors_to_struct(t_data *data, char *line, int *num_of_elems, int *color)
 {
 	char *val;
 
@@ -46,7 +46,7 @@ void extract_colors_to_struct(t_data *data, char *line, int *num_of_elems, int *
 	(*num_of_elems)++;
 }
 
-void extract_textures_to_struct(t_data *data, char *line, int *num_of_elems, char **texture)
+void textures_to_struct(t_data *data, char *line, int *num_of_elems, char **texture)
 {
 	int fd;
 	char *val;
@@ -71,20 +71,20 @@ void extract_utils(t_data *data, char *line, int *num_of_elems)
 	char *val;
 
 	if (ft_strncmp(line, "NO", 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
-			extract_textures_to_struct(data, line, num_of_elems, &data->north_texture);
+			textures_to_struct(data, line, num_of_elems, &data->north_texture);
 	else if (ft_strncmp(line, "SO", 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
-		extract_textures_to_struct(data, line, num_of_elems, &data->south_texture);
+		textures_to_struct(data, line, num_of_elems, &data->south_texture);
 	else if (ft_strncmp(line, "WE", 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
-		extract_textures_to_struct(data, line, num_of_elems, &data->west_texture);
+		textures_to_struct(data, line, num_of_elems, &data->west_texture);
 	else if (ft_strncmp(line, "EA", 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
-		extract_textures_to_struct(data, line, num_of_elems, &data->east_texture);
+		textures_to_struct(data, line, num_of_elems, &data->east_texture);
 	else if (line[0] == 'F' && (line[1] == ' ' || line[1] == '\t'))
-		extract_colors_to_struct(data, line, num_of_elems, &data->f_color);
+		colors_to_struct(data, line, num_of_elems, &data->f_color);
 	else if (line[0] == 'C' && (line[1] == ' ' || line[1] == '\t'))
-		extract_colors_to_struct(data, line, num_of_elems, &data->c_color);
+		colors_to_struct(data, line, num_of_elems, &data->c_color);
 }
 
-int extract_textures_colors(t_data *data, char **map)
+int extract_textures_and_colors(t_data *data, char **map)
 {
 	int i;
 	char *line;

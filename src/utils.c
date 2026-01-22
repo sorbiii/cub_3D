@@ -2,7 +2,7 @@
 
 void	error_and_exit(int i, t_data *data)
 {
-	clean(data);
+	free_everything(data);
 	if (i == INCORRECT_CHAR)
 		write(2, "INCORRECT CHAR\n", 15);
 	else if (i == MALLOC_ERROR)

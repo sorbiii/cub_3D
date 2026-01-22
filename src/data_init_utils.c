@@ -23,7 +23,7 @@ void null_struct(t_data *data)
 void check_texture_extention(t_data *data, char *s)
 {
 	int fd;
-	if (is_valid_map_extention(s, ".xpm", ft_strlen(".xpm")) == -1)
+	if (is_valid_extention(s, ".xpm", ft_strlen(".xpm")) == -1)
 		error_and_exit(WRONG_EXTENTION, data);
 	fd = open(s, O_RDONLY);
 	if (fd == -1)
@@ -37,7 +37,7 @@ int same_textures(t_data *data)
 	return (0);
 }
 
-int is_valid_map_extention(char *s, char *extention, int extention_len)
+int is_valid_extention(char *s, char *extention, int extention_len)
 {
 	char *pos;
 	int len;

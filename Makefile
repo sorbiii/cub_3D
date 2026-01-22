@@ -1,24 +1,36 @@
-NAME        = cub_3d
+NAME = cub_3d
 
-CC          = gcc
-#CFLAGS      = -Wall -Wextra -Werror -g -I includes -I includes/libft -g
-CFLAGS      = -g -I includes -I includes/libft -g -fPIE
+CC = gcc
+CFLAGS = -g -I includes -I includes/libft -fPIE
 
-LIBFT_DIR   = includes/libft
-LIBFT       = $(LIBFT_DIR)/libft.a
+LIBFT_DIR = includes/libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-MLX_DIR     = minilibx-linux
-MLX_LIB     = $(MLX_DIR)/libmlx.a
-MLX_FLAGS   = -lXext -lX11
+MLX_DIR = minilibx-linux
+MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -lXext -lX11
 
-SRC_DIR     = src
-SRC_FILES   = main.c src/map_checker.c src/utils.c src/data_init.c src/data_init_utils.c src/extract_colors_textures.c src/clean.c
-OBJ_FILES   = $(SRC_FILES:.c=.o)
+OBJ_DIR = obj
 
-%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+SRCS = main.c \
+src/map_checker.c \
+src/utils.c \
+src/data_init.c \
+src/data_init_utils.c \
+src/extract_colors_textures.c \
+src/clean.c \
+src/control.c
+
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 all: $(LIBFT) $(MLX_LIB) $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -26,17 +38,13 @@ $(LIBFT):
 $(MLX_LIB):
 	$(MAKE) -C $(MLX_DIR)
 
-$(NAME): $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBFT) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
-
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MLX_DIR) clean
-	rm -f $(OBJ_FILES)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(MAKE) -C $(MLX_DIR) clean
 	rm -f $(NAME)
 
 re: fclean all
