@@ -25,11 +25,5 @@ nos - błąð
 zły błąd gdy np so jest za kolorkami
 spacje na pustych liniach - seg fault
 
-22.01.2025
-1. names of some functions needs changing
-2. error messages needs changing
-2. ray casting what is needed in the struct
-3. window closing
-4. makefile - obj files
 
 ray casting
