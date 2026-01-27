@@ -1,10 +1,22 @@
 #include "../includes/cube.h"
 
-int parse_rgb(t_data *data, char *s, int j, int result, char *trimed)
+int	rgb_connect_and_errors(char **nums)
 {
 	int r;
 	int g;
 	int b;
+	int result;
+
+	r = ft_atoi(nums[0]);
+	g = ft_atoi(nums[1]);
+	b = ft_atoi(nums[2]);
+	result = (r << 16) | (g << 8) | b;
+	free_double_arr(nums);
+	return (result);
+}
+
+int parse_rgb(t_data *data, char *s, int result, char *trimed)
+{
 	char **nums;
 
 	trimed = str_whitespace_cleaner(data, s, 0);
@@ -13,18 +25,10 @@ int parse_rgb(t_data *data, char *s, int j, int result, char *trimed)
 	if (!nums || !nums[0] || !nums[1] || !nums[2])
 	{
 		if (nums)
-		{
-			while (nums[j])
-				free(nums[j++]);
-			free(nums);
-		}
+			free_double_arr(nums);
 		error_and_exit(MALLOC_ERROR, data);
 	}
-	r = ft_atoi(nums[0]);
-	g = ft_atoi(nums[1]);
-	b = ft_atoi(nums[2]);
-	result = (r << 16) | (g << 8) | b;
-	free_double_arr(nums);
+	result = rgb_connect_and_errors(nums);
 	return (result);
 }
 
@@ -36,9 +40,9 @@ void colors_to_struct(t_data *data, char *line, int *num_of_elems, int *color)
 		error_and_exit(MAP_ERROR, data);
 	val = trim_spaces(line + 1);
 	if (val)
-		*color = parse_rgb(data, val, 0, 0, NULL);
+		*color = parse_rgb(data, val, 0, NULL);
 	else
-		*color = parse_rgb(data, "", 0, 0, NULL);
+		*color = parse_rgb(data, "", 0, NULL);
 	if (val)
 		free(val);
 	if (*color == -1)
