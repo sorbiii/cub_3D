@@ -10,13 +10,6 @@
 
 michał
 -> leaki przy errorze mapunclosed
--> czy przekracza dana wartosx(255)
--> player facing, player x and player y
--> jak jest new lin w środku mapy to powinno byc że mapa jest nie dobra
--> jka w numeku z kolorów jest literka to ma byc bład a nie ma
-
-brak przypisanych kolorów
-
 
 natalia
 -> norminette - some files has more arguments

@@ -27,6 +27,9 @@ void	incorect_chars_checker(t_data *d, int y, int x, int count)
 			if (d->map[y][x] == 'S' || d->map[y][x] == 'E' || \
 				d->map[y][x] == 'N' || d->map[y][x] == 'W')
 			{
+				d->plr_facing = d->map[y][x];
+				d->plr_x = x;
+				d->plr_y = y;
 				d->map[y][x] = 'P';
 				count++;
 			}
@@ -46,6 +49,8 @@ void	is_map_closed(t_data *data, char **m, int x, int y)
 		x = 0;
 		while (m[y][x])
 		{
+			if (m[y][x] == '\n')
+				error_and_exit(INCORRECT_CHAR, data);
 			if (m[y][x] == '0' || m[y][x] == 'P')
 			{
 				if (map_close_helper(m, y, x))

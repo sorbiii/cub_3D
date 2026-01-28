@@ -3,7 +3,6 @@
 int	rgb_error(int r, int g, int b, char **nums)
 {
 	int i;
-	int j;
 
 	i = 0;
 	if (r > 255 && r < 0)
@@ -14,11 +13,11 @@ int	rgb_error(int r, int g, int b, char **nums)
 		return (1);
 	while (i < 3)
 	{
-		if (nums[0][i] && nums[0][i] > '9' || nums[0][i] < '0')
+		if (nums[0][i] && (nums[0][i] > '9' || nums[0][i] < '0'))
 			return (1);
-		if (nums[1][i] && nums[1][i] > '9' || nums[1][i] < '0')
+		if (nums[1][i] && (nums[1][i] > '9' || nums[1][i] < '0'))
 			return (1);
-		if (nums[2][i] && nums[2][i] > '9' || nums[2][i] < '0')
+		if (nums[2][i] && (nums[2][i] > '9' || nums[2][i] < '0'))
 			return (1);
 		i++;
 	}
