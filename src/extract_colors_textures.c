@@ -1,6 +1,31 @@
 #include "../includes/cube.h"
 
-int	rgb_connect_and_errors(char **nums)
+int	rgb_error(int r, int g, int b, char **nums)
+{
+	int i;
+	int j;
+
+	i = 0;
+	if (r > 255 && r < 0)
+		return (1);
+	if (g > 255 && g < 0)
+		return (1);
+	if (b > 255 && b < 0)
+		return (1);
+	while (i < 3)
+	{
+		if (nums[0][i] && nums[0][i] > '9' || nums[0][i] < '0')
+			return (1);
+		if (nums[1][i] && nums[1][i] > '9' || nums[1][i] < '0')
+			return (1);
+		if (nums[2][i] && nums[2][i] > '9' || nums[2][i] < '0')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	rgb_connect_and_errors(char **nums, t_data *data)
 {
 	int r;
 	int g;
@@ -10,6 +35,11 @@ int	rgb_connect_and_errors(char **nums)
 	r = ft_atoi(nums[0]);
 	g = ft_atoi(nums[1]);
 	b = ft_atoi(nums[2]);
+	if (rgb_error(r, g, b, nums))
+	{
+		free_double_arr(nums);
+		error_and_exit(WRONG_RGB, data);
+	}
 	result = (r << 16) | (g << 8) | b;
 	free_double_arr(nums);
 	return (result);
@@ -26,9 +56,9 @@ int parse_rgb(t_data *data, char *s, int result, char *trimed)
 	{
 		if (nums)
 			free_double_arr(nums);
-		error_and_exit(MALLOC_ERROR, data);
+		error_and_exit(WRONG_RGB, data);
 	}
-	result = rgb_connect_and_errors(nums);
+	result = rgb_connect_and_errors(nums, data);
 	return (result);
 }
 

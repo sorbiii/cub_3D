@@ -19,6 +19,8 @@ void	error_and_exit(int i, t_data *data)
 		write(2, "WRONG EXTENTION\n", 16);
 	else if (i == WRONG_TEXTURE)
 		write(2, "SAME TEXTURES\n", 16);
+	else if (i == WRONG_RGB)
+		write(2, "WRONG RGB\n", 11);
 	exit(-1);
 }
 

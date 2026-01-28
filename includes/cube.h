@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/27 20:36:35 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/01/28 15:41:16 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef enum error
     MAP_NOT_END,
     WRONG_TEXTURE,
     MLX_ERROR,
+    WRONG_RGB,
 }   error;
 
 typedef struct s_data
@@ -77,12 +78,14 @@ int same_textures(t_data *data);
 int	check_no_duplicates(char *s1, char *s2, char *s3, char *s4);
 
 // src/extract_colors_textures.c
+int	rgb_connect_and_errors(char **nums, t_data *data);
+int	rgb_error(int r, int g, int b, char **nums);
 int parse_rgb(t_data *data, char *s, int res, char *trimed);
 void colors_to_struct(t_data *data, char *line, int *num_of_elems, int *color);
 void textures_to_struct(t_data *data, char *line, int *num_of_elems, char **texture);
 void extract_utils(t_data *data, char *line, int *num_of_elems);
 int extract_textures_and_colors(t_data *data, char **map);
-int	rgb_connect_and_errors(char **nums);
+int	rgb_connect_and_errors(char **nums, t_data *data);
 
 //src/control.c
 int close_window(void *param);
