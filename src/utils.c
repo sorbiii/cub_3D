@@ -1,36 +1,5 @@
 #include "../includes/cube.h"
 
-void	error_and_exit(int i, t_data *data)
-{
-	free_everything(data);
-	if (i == INCORRECT_CHAR)
-		write(2, "INCORRECT CHAR\n", 15);
-	else if (i == MALLOC_ERROR)
-		write(2, "MALLOC ERROR\n", 14);
-	else if (i == TOO_MANY_PLRS)
-		write(2, "WRONG AMOUNT OF PLAYERS\n", 25);
-	else if (i == MAP_ERROR)
-		write(2, "MAP UNCLOSED\n", 13);
-	else if (i == FILE_OPEN_FAILURE)
-		write(2, "ERROR WHILE OPENING FILE\n", 25);
-	else if (i == WRONG_ARG_NUM)
-		write(2, "WRONG NUMBER OF ARGUMENTS\n", 26);
-	else if (i == WRONG_EXTENTION)
-		write(2, "WRONG EXTENTION\n", 16);
-	else if (i == WRONG_TEXTURE)
-		write(2, "SAME TEXTURES\n", 16);
-	else if (i == WRONG_RGB)
-		write(2, "WRONG RGB\n", 11);
-	exit(-1);
-}
-
-void	free_map_rows(char **new_map, int count)
-{
-	while (--count >= 0)
-		free(new_map[count]);
-	free(new_map);
-}
-
 char	**copy_map(t_data *map)
 {
 	char	**mapcpy;
@@ -54,4 +23,21 @@ char	**copy_map(t_data *map)
 	}
 	mapcpy[i] = NULL;
 	return (mapcpy);
+}
+
+int is_valid(char c)
+{
+	if (c != '0' && c != '1' && c != 'P')
+		return (1);
+	else
+		return (0);
+}
+
+int is_valid_char(char c)
+{
+	if (c == '1' || c == '0' || c == ' ' || (c < 14 && c > 7))
+		return (0);
+	else if (c == 'S' || c == 'W' || c == 'E' || c == 'N')
+		return (0);
+	return (1);
 }

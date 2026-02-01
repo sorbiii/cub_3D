@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/22 12:25:23 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/01 19:20:58 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,11 @@ void free_double_arr(char **arr)
 	free(arr);
 	return ;
 }
+
+void	free_map_rows(char **new_map, int count)
+{
+	while (--count >= 0)
+		free(new_map[count]);
+	free(new_map);
+}
+

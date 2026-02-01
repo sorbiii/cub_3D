@@ -49,12 +49,13 @@ void	is_map_closed(t_data *data, char **m, int x, int y)
 		x = 0;
 		while (m[y][x])
 		{
-			if (m[y][x] == '\n')
-				error_and_exit(INCORRECT_CHAR, data);
 			if (m[y][x] == '0' || m[y][x] == 'P')
 			{
 				if (map_close_helper(m, y, x))
+				{
+					free_double_arr(m);
 					error_and_exit(MAP_ERROR, data);
+				}
 			}
 			x++;
 		}
@@ -73,21 +74,4 @@ int	map_close_helper(char **m, int y, int x)
 	if (!m[y + 1][x] || is_valid(m[y + 1][x]))
 		return (1);
 	return (0);
-}
-
-int is_valid(char c)
-{
-	if (c != '0' && c != '1' && c != 'P')
-		return (1);
-	else
-		return (0);
-}
-
-int is_valid_char(char c)
-{
-	if (c == '1' || c == '0' || c == ' ' || (c < 14 && c > 7))
-		return (0);
-	else if (c == 'S' || c == 'W' || c == 'E' || c == 'N')
-		return (0);
-	return (1);
 }
