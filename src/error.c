@@ -5,7 +5,6 @@ int	rgb_error(int r, int g, int b, char **nums)
 	int i;
 
 	i = 0;
-	printf("%d\n%d\n%d\n", r, g, b);
 	if (r > 255 || r < 0)
 		return (1);
 	if (g > 255 || g < 0)
@@ -43,7 +42,7 @@ void	error_and_exit(int i, t_data *data)
 	else if (i == WRONG_EXTENTION)
 		write(2, "WRONG EXTENTION\n", 16);
 	else if (i == WRONG_TEXTURE)
-		write(2, "SAME TEXTURES\n", 16);
+		write(2, "SAME TEXTURES\n", 15);
 	else if (i == WRONG_RGB)
 		write(2, "WRONG RGB\n", 11);
 	exit(-1);
@@ -64,7 +63,7 @@ int	rgb_connect_and_errors(char **nums, t_data *data)
 		free_double_arr(nums);
 		error_and_exit(WRONG_RGB, data);
 	}
-	result = (r << 16) | (g << 8) | b;
+	result = (0 << 24) | (r << 16) | (g << 8) | (b);
 	free_double_arr(nums);
 	return (result);
 }

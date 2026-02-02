@@ -28,8 +28,9 @@ void	incorect_chars_checker(t_data *d, int y, int x, int count)
 				d->map[y][x] == 'N' || d->map[y][x] == 'W')
 			{
 				d->plr_facing = d->map[y][x];
-				d->plr_x = x;
-				d->plr_y = y;
+				d->plr_x = x + 0.5;
+				d->plr_y = y + 0.5;
+				printf ("plr x:%f\nplr y:%f\n", d->plr_x, d->plr_y);
 				d->map[y][x] = 'P';
 				count++;
 			}
