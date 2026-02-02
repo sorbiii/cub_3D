@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/01/28 15:41:16 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/02 18:11:31 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum error
 typedef struct s_data
 {
     char    **map;
+    char    *line_map;
     int     m_height;
     int     m_width;
     char    plr_facing; //N, S, W, E
@@ -63,15 +64,17 @@ typedef struct s_data
 // src/data_init.c
 void init_data(int argc, char **argv, t_data *data);
 void read_file(t_data *data, char *filename);
-char **create_map(t_data *data, int fd);
-char **map_convert(t_data *data, char **map);
+void read_from_file(t_data *data, int fd);
+void extract_from_line(t_data *data, char *line);
+
+//char **map_convert(t_data *data, char **map);
 
 // src/data_init_utils.c
 char *trim_spaces(const char *s);
 void null_struct(t_data *data);
 void check_texture_extention(t_data *data, char *s);
 int is_valid_extention(char *s, char *extention, int extention_len);
-void	count_map_size(t_data *data, char **map, int start_idx);
+void	count_map_size(t_data *data, char **map);
 void	free_map_rows(char **new_map, int count);
 int ft_strcmp(const char *s1, const char *s2);
 int same_textures(t_data *data);
@@ -81,9 +84,9 @@ int	check_no_duplicates(char *s1, char *s2, char *s3, char *s4);
 int	rgb_connect_and_errors(char **nums, t_data *data);
 int	rgb_error(int r, int g, int b, char **nums);
 int parse_rgb(t_data *data, char *s, int res, char *trimed);
-void colors_to_struct(t_data *data, char *line, int *num_of_elems, int *color);
-void textures_to_struct(t_data *data, char *line, int *num_of_elems, char **texture);
-void extract_utils(t_data *data, char *line, int *num_of_elems);
+void colors_to_struct(t_data *data, char **line, int *num_of_elems, int *color);
+void textures_to_struct(t_data *data, char **line, int *num_of_elems, char **texture);
+void extract_utils(t_data *data, char **line, int *num_of_elems);
 int extract_textures_and_colors(t_data *data, char **map);
 int	rgb_connect_and_errors(char **nums, t_data *data);
 

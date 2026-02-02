@@ -55,7 +55,7 @@ int is_valid_extention(char *s, char *extention, int extention_len)
 	return (0);
 }
 
-void count_map_size(t_data *data, char **map, int start_idx)
+void count_map_size(t_data *data, char **map)
 {
 	char *line;
 	char *trim;
@@ -66,18 +66,18 @@ void count_map_size(t_data *data, char **map, int start_idx)
 		return ;
 	data->m_width = 0;
 	data->m_height = 0;
-	i = start_idx; //start after textures, colors
-	while (map[i])
-	{
-		trim = trim_spaces(map[i]);
-		if (!trim || trim[0] == '\0')
-		{
-			free(trim);
-			i++;
-		}
-		free(trim);
-		break;
-	}
+	i = 0;
+	// while (map[i])
+	// {
+	// 	trim = trim_spaces(map[i]);
+	// 	if (!trim || trim[0] == '\0' || trim[0] == '\v')
+	// 	{
+	// 		free(trim);
+	// 		i++;
+	// 	}
+	// 	free(trim);
+	// 	break;
+	// }
 	while (map[i])
 	{
 		line = map[i];
