@@ -55,46 +55,6 @@ int is_valid_extention(char *s, char *extention, int extention_len)
 	return (0);
 }
 
-void count_map_size(t_data *data, char **map)
-{
-	char *line;
-	char *trim;
-	int i;
-	int num_of_elems;
-
-	if (!data || !map)
-		return ;
-	data->m_width = 0;
-	data->m_height = 0;
-	i = 0;
-	// while (map[i])
-	// {
-	// 	trim = trim_spaces(map[i]);
-	// 	if (!trim || trim[0] == '\0' || trim[0] == '\v')
-	// 	{
-	// 		free(trim);
-	// 		i++;
-	// 	}
-	// 	free(trim);
-	// 	break;
-	// }
-	while (map[i])
-	{
-		line = map[i];
-		trim = trim_spaces(line);
-		if (!trim || trim[0] == '\0')
-		{
-			free(trim);
-			break;
-		}
-		free(trim);
-		if ((int)ft_strlen(line) > data->m_width)
-			data->m_width = ft_strlen(line);
-		data->m_height++;
-		i++;
-	}
-}
-
 int	check_no_duplicates(char *s1, char *s2, char *s3, char *s4)
 {
 	char	*strs[4];
