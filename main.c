@@ -55,27 +55,24 @@ int	handler(int keycode, t_data *data)
 		return (0);
 }
 
-void	move_handler(int keycode, t_data *data)
+void	move_handler(int keycode, t_data *d)
 {
+	double	new_x;
+	double	new_y;
+
 	if (keycode == 119)
+		move_up_and_down(&new_x, &new_y, UP, d);
+	else if (keycode == 97)
+		move_right_and_left(&new_x, &new_y, LEFT, d);
+	else if (keycode == 115)
+		move_right_and_left(&new_x, &new_y, RIGHT, d);
+	else if (keycode == 100)
+		move_up_and_down(&new_x, &new_y, DOWN, d);
+	if (d->map[(int)new_y][(int)d->plr_x] != '1' && \
+		d->map[(int)d->plr_y][(int)new_x] != '1')
 	{
-		printf("1\n");
-		fflush(stdout);
-	}
-	if (keycode == 97)
-	{
-		printf("2\n");
-		fflush(stdout);
-	}
-	if (keycode == 115)
-	{
-		printf("3\n");
-		fflush(stdout);
-	}	
-	if (keycode == 100)
-	{
-		printf("4\n");
-		fflush(stdout);
+			d->plr_y = new_y;
+			d->plr_x = new_x;
 	}
 	return ;
 }
@@ -126,6 +123,4 @@ void	dir_and_plank_update(t_data *d, double rotspeed)
 
 	d->plane_x = d->plane_x * cos_rot - d->plane_y * sin_rot;
 	d->plane_y = old_plane_x *sin_rot + d->plane_y * cos_rot;
-	printf("dir x:%f\ndir y:%f\nplane x:%f\nplane y:%f\n", d->p_dir_x, d->p_dir_y, d->plane_x, d->plane_y);
-	fflush(stdout);
 }

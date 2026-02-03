@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/02 20:09:03 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/03 18:12:34 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define WIDTH 1600
 # define HEIGHT 900
 # define rot_speed 0.05
+# define plr_speed 0.10
 
 typedef enum error
 {
@@ -35,6 +36,10 @@ typedef enum error
 	WRONG_TEXTURE,
 	MLX_ERROR,
 	WRONG_RGB,
+	UP,
+	DOWN,
+	RIGHT,
+	LEFT
 }   error;
 
 typedef struct s_data
