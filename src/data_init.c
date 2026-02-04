@@ -52,38 +52,29 @@ char *remove_first_line(char **src_line, int rest_len)
 
 char *extract_one_line(t_data *data, char **line)
 {
-	int i;
-	char *new_line;
-	int remain_len;
-	char *tmp;
+    int i;
+    char *new_line;
+    int remain_len;
 
-	if (!line || (*line)[0] == '\0' || !*line)
-		return (NULL);
-	i = 0;
-	while ((*line)[i] && (*line)[i] != '\n')
-		i++;
-	new_line = ft_calloc(i + 1, 1);
-	if (!new_line)
-		return (NULL);
-	ft_strlcpy(new_line, *line, i + 1);
-	if (!is_blank_line(new_line))
+    if (!line || !*line || (*line)[0] == '\0')
+        return (NULL);
+    i = 0;
+    while ((*line)[i] && (*line)[i] != '\n')
+        i++;
+    new_line = ft_calloc(i + 1, 1);
+    if (!new_line)
+        error_and_exit(MALLOC_ERROR, data);
+    ft_strlcpy(new_line, *line, i + 1);
+    if ((*line)[i] == '\n')
     {
-        tmp = trim_spaces(new_line);
-        if (tmp)
-        {
-            free(new_line);
-            new_line = tmp;
-        }
+        remain_len = ft_strlen(*line + i + 1);
+        *line = remove_first_line(line, remain_len);
     }
-	if ((*line)[i] == '\n')
-	{
-		remain_len = ft_strlen(*line + i + 1);
-		*line = remove_first_line(line, remain_len);
-	}
-	else
-		(*line)[0] = '\0';
-	return (new_line);
+    else
+        (*line)[0] = '\0';
+    return (new_line);
 }
+
 
 char *textures_colors_to_struct(t_data *data, char **line)
 {
@@ -93,18 +84,23 @@ char *textures_colors_to_struct(t_data *data, char **line)
     num_of_elem = 0;
 	null_struct(data);
     while (num_of_elem < 6)
-    {
-        ln = extract_one_line(data, line);
-        while (is_blank_line(ln) == 1)
-        {
-            free(ln);
+	{
+		ln = extract_one_line(data, line);
+		while (ln && is_blank_line(ln))
+		{
+			free(ln);
 			ln = extract_one_line(data, line);
-        }
-        extract_utils(data, &ln, &num_of_elem);
-        free(ln);
-    }
+		}
+		if (!ln)
+			error_and_exit(MAP_ERROR, data);
+		char *trimmed = trim_spaces(ln);
+		free(ln);
+		ln = trimmed;
+		extract_utils(data, &ln, &num_of_elem);
+		free(ln);
+	}
 	ln = extract_one_line(data, line);
-	while (is_blank_line(ln) == 1 && ln)
+	while (ln && is_blank_line(ln))
 	{
 		free(ln);
 		ln = extract_one_line(data, line);
@@ -152,8 +148,12 @@ int calculate_map_height(char **line, t_data *data)
 				return (height);
 			if (!is_blank_line(ln))
 			{
-				//free(ln);
-				//free_double_arr(line);
+				free(ln);
+				if (line && *line)
+				{
+					free(*line);
+					*line = NULL;
+				} 
 				error_and_exit(MAP_ERROR, data);
 			}
 		} 
@@ -168,59 +168,69 @@ int calculate_map_height(char **line, t_data *data)
 char **convert_map(t_data *data, char **big_line, char *first_map_line)
 {
 	int i;
-	int len;
 	char *one_line;
 	char **new_map;
 	char *line_cpy;
 
-	i = 1;
+	data->map = ft_calloc(2, sizeof(char *));
+	if (!data->map)
+	{
+		free(first_map_line);
+		error_and_exit(MALLOC_ERROR, data);
+	}
+	data->map[0] = first_map_line;
 	line_cpy = ft_strdup(*big_line);
-    if (!line_cpy)
-        return (NULL);
+	if (!line_cpy)
+		error_and_exit(MALLOC_ERROR, data);
 	data->m_height = calculate_map_height(&line_cpy, data);
 	free(line_cpy);
-	printf("%d\n", data->m_height);
-	new_map = malloc(sizeof(char *) * (data->m_height + 1 + 1)); //plus 1 na tą pierwsza linie i plus 1 na null na końcu 
-	new_map[0] = first_map_line;
+	new_map = ft_calloc(data->m_height + 2, sizeof(char *));
+	if (!new_map)
+		error_and_exit(MALLOC_ERROR, data);
+	new_map[0] = data->map[0];
+	free(data->map);
+	data->map = new_map;
+	i = 1;
 	one_line = extract_one_line(data, big_line);
 	while (one_line)
 	{
 		if (is_blank_line(one_line))
+		{
+			free(one_line);
 			break;
-		new_map[i] = one_line;
+		}
+		data->map[i] = one_line;
 		i++;
 		one_line = extract_one_line(data, big_line);
 	}
-	if (one_line)
-		free(one_line);
-	new_map[i] = NULL;
-	print_char_array(new_map);
-	return (new_map);
+	if (big_line && *big_line)
+	{
+		free(*big_line);
+		*big_line = NULL;
+	}
+	return (data->map);
 }
 
-// do momentu mapy działamy na jednej linii
 void read_from_file(t_data *data, int fd)
 {
-	char *buffer;
 	char *line;
 	char *temp;
 	char *first_map_line;
 
-	buffer = ft_strdup("");
+	data->line_map = ft_strdup("");
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		temp = buffer;
-		buffer = ft_strjoin(temp, line);
+		temp = data->line_map;
+		data->line_map = ft_strjoin(temp, line);
 		free(temp);
 		free(line);
 		line = get_next_line(fd);
 	}
-	first_map_line = textures_colors_to_struct(data, &buffer);
+	first_map_line = textures_colors_to_struct(data, &data->line_map);
 	if (!first_map_line)
 		error_and_exit(MAP_ERROR, data);
-	data->map = convert_map(data, &buffer, first_map_line);
-	free(buffer);
+	data->map = convert_map(data, &data->line_map, first_map_line);
 }
 
 void read_file(t_data *data, char *filename)

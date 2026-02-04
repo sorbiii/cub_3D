@@ -65,41 +65,55 @@ void colors_to_struct(t_data *data, char **line, int *num_of_elems, int *color)
 {
     char *val;
 
-    // if (*color != -1)
-    //     error_and_exit(MAP_ERROR, data);
     if (!line || !*line)
         error_and_exit(MAP_ERROR, data);
+
     val = trim_spaces((*line) + 1);
     if (val)
         *color = parse_rgb(data, val, 0, NULL);
     else
         *color = parse_rgb(data, "", 0, NULL);
+
     if (val)
         free(val);
+
     if (*color == -1)
+    {
+        free(*line);
+        *line = NULL;
         error_and_exit(MAP_ERROR, data);
+    }
+
     (*num_of_elems)++;
 }
 
+
 void textures_to_struct(t_data *data, char **line, int *num_of_elems, char **texture)
 {
-    int fd;
     char *val;
 
     if (!num_of_elems || !texture || !line || !*line)
         error_and_exit(MAP_ERROR, data);
-    // if (*texture)
-    //     error_and_exit(MAP_ERROR, data);
+
     val = trim_spaces((*line) + 2);
     if (val)
         *texture = ft_strdup(val);
     else
         *texture = ft_strdup("");
+
     if (val)
         free(val);
+
+    if (!*texture)
+    {
+        free(*line);
+        *line = NULL;
+        error_and_exit(MALLOC_ERROR, data);
+    }
+	check_texture_extention(data, *texture);
     (*num_of_elems)++;
-    check_texture_extention(data, *texture);
 }
+
 
 void extract_utils(t_data *data, char **line, int *num_of_elems)
 {
