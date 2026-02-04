@@ -62,19 +62,48 @@ void	move_handler(int keycode, t_data *d)
 
 	if (keycode == 119)
 		move_up_and_down(&new_x, &new_y, UP, d);
+	else if (keycode == 115)
+		move_up_and_down(&new_x, &new_y, DOWN, d);
 	else if (keycode == 97)
 		move_right_and_left(&new_x, &new_y, LEFT, d);
-	else if (keycode == 115)
-		move_right_and_left(&new_x, &new_y, RIGHT, d);
 	else if (keycode == 100)
-		move_up_and_down(&new_x, &new_y, DOWN, d);
-	if (d->map[(int)new_y][(int)d->plr_x] != '1' && \
-		d->map[(int)d->plr_y][(int)new_x] != '1')
-	{
-			d->plr_y = new_y;
+		move_right_and_left(&new_x, &new_y, RIGHT, d);
+	if (d->map[(int)new_y][(int)d->plr_x] != '1')
+		d->plr_y = new_y;
+	if (d->map[(int)d->plr_y][(int)new_x] != '1')	
 			d->plr_x = new_x;
-	}
 	return ;
+}
+void	move_up_and_down(double *x, double *y, int code, t_data *data)
+{
+	if (code == UP)
+	{
+		*x = data->plr_x + (data->p_dir_x * plr_speed);
+		*y = data->plr_y + (data->p_dir_y * plr_speed);
+		return ;
+	}
+	else if (code == DOWN)
+	{
+		*x = data->plr_x - (data->p_dir_x * plr_speed);
+		*y = data->plr_y - (data->p_dir_y * plr_speed);
+		return ;
+	}
+}
+
+void	move_right_and_left(double *x, double *y, int code, t_data *data)
+{
+	if (code == RIGHT)
+	{
+		*x = data->plr_x - (data->p_dir_y * plr_speed);
+		*y = data->plr_y + (data->p_dir_x * plr_speed);
+		return ;
+	}
+	else if (code == LEFT)
+	{
+		*x = data->plr_x + (data->p_dir_y * plr_speed);
+		*y = data->plr_y - (data->p_dir_x * plr_speed);
+		return ;
+	}
 }
 
 void rotation_handler(int keycode, t_data *data)

@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/03 18:12:34 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/04 22:38:09 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ int		render(t_data *data);
 void	rotation_handler(int keycode, t_data *data);
 void	math_init(t_data *data);
 void	dir_and_plank_update(t_data *d, double rotspeed);
+void	move_right_and_left(double *x, double *y, int code, t_data *data);
+void	move_up_and_down(double *x, double *y, int code, t_data *data);
 #endif  
 
 
