@@ -25,9 +25,10 @@ int main(int argc, char **argv)
 		return (1);
 	init_data(argc, argv, data);
 	map_checker(data);
-	init_mlx(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	mlx_control(data);
-	mlx_loop(data->mlx);
+	free_everything(data);
+	//init_mlx(data);
+	//mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	//mlx_control(data);
+	//mlx_loop(data->mlx);
 	return (0);
 }

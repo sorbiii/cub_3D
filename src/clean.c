@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/01 19:20:58 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/05 23:05:51 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@ void free_everything(t_data *data)
 {
 	if (!data)
 		return ;
-	if (data->map)
-		free_double_arr(data->map);
+	//data->map = NULL;
 	free(data->north_texture);
 	free(data->south_texture);
 	free(data->west_texture);
 	free(data->east_texture);
+	if (data->map)
+		free_double_arr(data->map);
+	if (data->line_map)
+	{
+    	free(data->line_map);
+    	data->line_map = NULL;
+	}
 	free(data);
 }
 
@@ -59,7 +65,8 @@ void free_double_arr(char **arr)
 	j = 0;
 	while (arr[j])
 		free(arr[j++]);
-	free(arr);
+	if (arr)
+		free(arr);
 	return ;
 }
 

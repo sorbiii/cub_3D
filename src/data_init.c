@@ -1,6 +1,22 @@
-#include "../includes/cube.h" 
+#include "../includes/cube.h"
 
-// void	print_char_array(char **arr)
+int is_blank_line(const char *s)
+{
+	int i;
+
+	if (!s)
+		return (1);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != ' ' && s[i] != '\t' && s[i] != '\r' && s[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+// void print_char_array(char **arr)
 // {
 // 	int i;
 
@@ -9,86 +25,159 @@
 // 	i = 0;
 // 	while (arr[i])
 // 	{
-// 		printf("dupa%s dupa\n", arr[i]);
+// 		printf("dupa%sdupa\n", arr[i]);
 // 		i++;
 // 	}
 // }
 
-char **map_convert(t_data *data, char **map)
+char *remove_first_line(char **src_line, int rest_len)
 {
-	int i;
-	int start_idx;
-	char **new_map;
+	int len;
+	int cut_len;
+	char *new_line;
 
-	start_idx = extract_textures_and_colors(data, map);
-	if (start_idx == -1)
-	{
-		free_double_arr(map);
-		error_and_exit(MAP_NOT_END, data);
-	}
-	if (same_textures(data) == -1)
-	{
-		free_double_arr(map);
-		error_and_exit(WRONG_TEXTURE, data);
-	}
-	count_map_size(data, map, start_idx);
-	new_map = malloc(sizeof(char *) * (data->m_height + 1));
-	if (!new_map)
-		return (free_double_arr(map), NULL);
-	i = 0;
-	while (i < data->m_height && map[start_idx + i])
-	{
-		new_map[i] = malloc(data->m_width + 1);
-		if (!new_map[i])
-			return (free_map_rows(new_map, i), free_double_arr(map), NULL);
-		ft_memset(new_map[i], ' ', data->m_width);
-		ft_memcpy(new_map[i], map[start_idx + i], ft_strlen(map[start_idx + i]));
-		new_map[i][data->m_width] = '\0';
-		i++;
-	}
-	new_map[i] = NULL;
-	free_double_arr(map);
-	return (new_map);
+	if (!src_line || !*src_line)
+		return (NULL);
+	len = ft_strlen(*src_line);
+	cut_len = len - rest_len;
+	new_line = ft_calloc(rest_len + 1, 1);
+	if (!new_line)
+		return (NULL);
+	if (rest_len > 0)
+		ft_strlcpy(new_line, *src_line + cut_len, rest_len + 1);
+	free(*src_line);
+	*src_line = NULL;
+	return (new_line);
 }
 
-char **create_map(t_data *data, int fd)
+char *extract_one_line(t_data *data, char **line)
 {
-	char *buffer;
+	int i;
+	char *new_line;
+	int remain_len;
+
+	if (!line || !*line || (*line)[0] == '\0')
+		return (NULL);
+	i = 0;
+	while ((*line)[i] && (*line)[i] != '\n')
+		i++;
+	new_line = ft_calloc(i + 1, 1);
+	if (!new_line)
+		error_and_exit(MALLOC_ERROR, data);
+	ft_strlcpy(new_line, *line, i + 1);
+	if ((*line)[i] == '\n')
+	{
+		remain_len = ft_strlen(*line + i + 1);
+		*line = remove_first_line(line, remain_len);
+	}
+	else
+		(*line)[0] = '\0';
+	return (new_line);
+}
+
+char *textures_colors_to_struct(t_data *data, char **line)
+{
+	int num_of_elem;
+	char *ln;
+
+	num_of_elem = 0;
+	null_struct(data);
+	while (num_of_elem < 6)
+	{
+		ln = extract_one_line(data, line);
+		while (ln && is_blank_line(ln))
+		{
+			free(ln);
+			ln = extract_one_line(data, line);
+		}
+		if (!ln)
+			error_and_exit(MAP_ERROR, data);
+		char *trimmed = trim_spaces(ln);
+		free(ln);
+		ln = trimmed;
+		extract_utils(data, &ln, &num_of_elem);
+		free(ln);
+	}
+	ln = extract_one_line(data, line);
+	while (ln && is_blank_line(ln))
+	{
+		free(ln);
+		ln = extract_one_line(data, line);
+	}
+	return (ln);
+}
+
+int calculate_map_height(char **line, t_data *data)
+{
+	int i;
+	int height;
+	char *ln;
+
+	i = 0;
+	height = 0;
+	ln = extract_one_line(data, line);
+	while (ln)
+	{
+		while (is_blank_line(ln))
+		{
+			free(ln);
+			ln = extract_one_line(data, line);
+			if (!ln)
+				return (height);
+			if (!is_blank_line(ln))
+			{
+				free(ln);
+				if (line && *line)
+				{
+					free(*line);
+					*line = NULL;
+				}
+				error_and_exit(MAP_ERROR, data);
+			}
+		}
+		height += 1;
+		free(ln);
+		ln = extract_one_line(data, line);
+	}
+	free(ln);
+	return (height);
+}
+
+void read_from_file(t_data *data, int fd)
+{
 	char *line;
 	char *temp;
-	char **map;
+	char *first_map_line;
 
-	buffer = ft_strdup("");
+	data->line_map = ft_strdup("");
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		temp = buffer;
-		buffer = ft_strjoin(temp, line);
+		temp = data->line_map;
+		data->line_map = ft_strjoin(temp, line);
 		free(temp);
 		free(line);
 		line = get_next_line(fd);
 	}
-	map = ft_split(buffer, '\n');
-	free(buffer);
-	free(line);
-	return (map_convert(data, map));
-}
-
-void read_file(t_data *data, char *filename)
-{
-	int fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		error_and_exit(FILE_OPEN_FAILURE, data);
-	data->map = create_map(data, fd);
+	first_map_line = textures_colors_to_struct(data, &data->line_map);
+	if (!first_map_line)
+		error_and_exit(MAP_ERROR, data);
+	data->map = convert_map(data, &data->line_map, first_map_line);
+	add_spaces_to_map(data);
 }
 
 void init_data(int argc, char **argv, t_data *data)
 {
-	if(argc != 2)
+	int fd;
+
+	if (argc != 2)
 		error_and_exit(WRONG_ARG_NUM, data);
 	if (is_valid_extention(argv[1], ".cub", ft_strlen(".cub")) == -1)
 		error_and_exit(WRONG_EXTENTION, data);
-	read_file(data, argv[1]);
+		fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		error_and_exit(FILE_OPEN_FAILURE, data);
+	read_from_file(data, fd);
+	//print_char_array(data->map);
+	close(fd);
 }
