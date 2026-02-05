@@ -1,22 +1,6 @@
 
-
-## NEEDED  IN STRUCT ##
-~ map width same as below
-~ map height (real one, index + 1)
-~ map in format(char ** with same lenght of every subline)
-~ plr facing
-~ plr x;
-~ plr y;
-
 michał
--> leaki przy errorze mapunclosed
+-> rgb - invalid read gdy jest jednocyfrowa liczba
+-> rgb - jak sa 3 i wiecej cyfr w rgb i doda sie tam jakiegos chara to nie wyskakuje bląd
+-> seg fault gdy jest map unclosed w ostatniej linijce mapy
 
-natalia
--> norminette - some files has more arguments
--> names of some functions should be changed 
-nos - błąð
-zły błąd gdy np so jest za kolorkami
-spacje na pustych liniach - seg fault
-
-
-ray casting
