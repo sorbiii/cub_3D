@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	if (!data)
 		return (1);
 	init_data(argc, argv, data);
-	//map_checker(data);
+	map_checker(data);
 	free_everything(data);
 	//init_mlx(data);
 	//mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);

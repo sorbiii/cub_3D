@@ -19,7 +19,8 @@ src/data_init.c \
 src/data_init_utils.c \
 src/extract_colors_textures.c \
 src/clean.c \
-src/control.c
+src/control.c \
+src/map_convert.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
