@@ -45,10 +45,12 @@ void	error_and_exit(int i, t_data *data)
 		write(2, "SAME TEXTURES\n", 15);
 	else if (i == WRONG_RGB)
 		write(2, "WRONG RGB\n", 11);
+	else if (i == WRONG_TEXTURE_OR_COLOR)
+		write(2, "WRONG TEXTURE OR COLOR\n", 24);
 	exit(-1);
 }
 
-int	rgb_connect_and_errors(char **nums, t_data *data)
+int	rgb_connect_and_errors(char **nums, t_data *data, char *s, char **line)
 {
 	int r;
 	int g;
@@ -61,6 +63,8 @@ int	rgb_connect_and_errors(char **nums, t_data *data)
 	if (rgb_error(r, g, b, nums))
 	{
 		free_double_arr(nums);
+		free(*line);
+		free(s);
 		error_and_exit(WRONG_RGB, data);
 	}
 	result = (0 << 24) | (r << 16) | (g << 8) | (b);

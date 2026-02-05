@@ -79,6 +79,7 @@ char *textures_colors_to_struct(t_data *data, char **line)
 {
 	int num_of_elem;
 	char *ln;
+	char *trimmed;
 
 	num_of_elem = 0;
 	null_struct(data);
@@ -91,8 +92,8 @@ char *textures_colors_to_struct(t_data *data, char **line)
 			ln = extract_one_line(data, line);
 		}
 		if (!ln)
-			error_and_exit(MAP_ERROR, data);
-		char *trimmed = trim_spaces(ln);
+			error_and_exit(WRONG_TEXTURE_OR_COLOR, data);
+		trimmed = trim_spaces(ln);
 		free(ln);
 		ln = trimmed;
 		extract_utils(data, &ln, &num_of_elem);
@@ -132,7 +133,7 @@ int calculate_map_height(char **line, t_data *data)
 					free(*line);
 					*line = NULL;
 				}
-				error_and_exit(MAP_ERROR, data);
+				error_and_exit(INCORRECT_CHAR, data);
 			}
 		}
 		height += 1;

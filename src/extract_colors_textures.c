@@ -1,9 +1,11 @@
 #include "../includes/cube.h"
 
-int parse_rgb(t_data *data, char *s, int result, char *trimed)
+int parse_rgb(t_data *data, char *s, int result, char **line)
 {
 	char **nums;
+    char *trimed;
 
+    trimed = NULL;
 	trimed = str_whitespace_cleaner(data, s, 0);
 	nums = ft_split(trimed, ',');
 	free(trimed);
@@ -11,9 +13,12 @@ int parse_rgb(t_data *data, char *s, int result, char *trimed)
 	{
 		if (nums)
 			free_double_arr(nums);
+        free(s);
+        if (line)
+            free(*line);
 		error_and_exit(WRONG_RGB, data);
 	}
-	result = rgb_connect_and_errors(nums, data);
+	result = rgb_connect_and_errors(nums, data, s, line);
 	return (result);
 }
 
@@ -26,9 +31,9 @@ void colors_to_struct(t_data *data, char **line, int *num_of_elems, int *color)
 
     val = trim_spaces((*line) + 1);
     if (val)
-        *color = parse_rgb(data, val, 0, NULL);
+        *color = parse_rgb(data, val, 0, line);
     else
-        *color = parse_rgb(data, "", 0, NULL);
+        *color = parse_rgb(data, "", 0, line);
 
     if (val)
         free(val);
@@ -66,7 +71,7 @@ void textures_to_struct(t_data *data, char **line, int *num_of_elems, char **tex
         *line = NULL;
         error_and_exit(MALLOC_ERROR, data);
     }
-	check_texture_extention(data, *texture);
+	check_texture_extention(data, *texture, line);
     (*num_of_elems)++;
 }
 
@@ -89,4 +94,9 @@ void extract_utils(t_data *data, char **line, int *num_of_elems)
         colors_to_struct(data, line, num_of_elems, &data->f_color);
     else if ((*line)[0] == 'C' && ((*line)[1] == ' ' || (*line)[1] == '\t'))
         colors_to_struct(data, line, num_of_elems, &data->c_color);
+    else
+    {
+        free(*line);
+        error_and_exit(INCORRECT_CHAR, data);
+    }
 }

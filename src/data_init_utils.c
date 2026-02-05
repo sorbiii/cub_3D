@@ -20,14 +20,20 @@ void null_struct(t_data *data)
 	data->c_color = -1;
 }
 
-void check_texture_extention(t_data *data, char *s)
+void check_texture_extention(t_data *data, char *s, char **line)
 {
 	int fd;
 	if (is_valid_extention(s, ".xpm", ft_strlen(".xpm")) == -1)
+	{
+		free(*line);
 		error_and_exit(WRONG_EXTENTION, data);
+	}
 	fd = open(s, O_RDONLY);
 	if (fd == -1)
+	{
+		free(*line);
 		error_and_exit(FILE_OPEN_FAILURE, data);
+	}
 }
 
 int same_textures(t_data *data)

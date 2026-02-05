@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/05 23:05:51 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/05 23:41:33 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ void free_double_arr(char **arr)
 {
 	int j;
 	
+	if (!arr)
+		return ;
 	j = 0;
 	while (arr[j])
 		free(arr[j++]);
-	if (arr)
-		free(arr);
+	free(arr);
 	return ;
 }
 
