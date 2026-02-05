@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/05 23:05:07 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/05 23:09:18 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 # define CUBE_H
 
 # include <fcntl.h>
+# include <math.h>
 # include "libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 
 # define WIDTH 1600
 # define HEIGHT 900
+# define rot_speed 0.05
+# define plr_speed 0.10
 
 typedef enum error
 {
@@ -33,31 +36,44 @@ typedef enum error
 	WRONG_TEXTURE,
 	MLX_ERROR,
 	WRONG_RGB,
+	UP,
+	DOWN,
+	RIGHT,
+	LEFT
 }   error;
 
 typedef struct s_data
 {
-    char    **map;
-    char    *line_map;
-    int     m_height;
-    int     m_width;
-    char    plr_facing; //N, S, W, E
-    int     plr_x;
-    int     plr_y;
-    char    *north_texture;
-    char    *south_texture;
-    char    *west_texture;
-    char    *east_texture;
-    int     f_color;
-    int     c_color;
+	char		**map;
+    char        *line_map;
+	int			m_height;
+	int			m_width;
+	char		plr_facing; //N, S, W, E
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	int			f_color;
+	int			c_color;
 
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*data_addr;
-	int		bits_per_pixel;
-	int		line_size;
-	int		endian;
+	//plr
+
+	double		plr_x;
+	double		plr_y;
+	double		p_dir_x;
+	double		p_dir_y;
+	double		plane_x;
+	double		plane_y;
+
+	//mlx
+
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*data_addr;
+	int			bits_per_pixel;
+	int			line_size;
+	int			endian;
 }	t_data;
 
 // src/data_init.c
@@ -125,6 +141,15 @@ void	free_map_rows(char **new_map, int count);
 int		is_valid_char(char c);
 char	**copy_map(t_data *map);
 int		is_valid(char c);
+
+void	move_handler(int keycode, t_data *data);
+int		handler(int keycode, t_data *data);
+int		render(t_data *data);
+void	rotation_handler(int keycode, t_data *data);
+void	math_init(t_data *data);
+void	dir_and_plank_update(t_data *d, double rotspeed);
+void	move_right_and_left(double *x, double *y, int code, t_data *data);
+void	move_up_and_down(double *x, double *y, int code, t_data *data);
 #endif  
 
 

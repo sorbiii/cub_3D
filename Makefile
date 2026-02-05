@@ -1,14 +1,17 @@
 NAME = cub_3d
 
 CC = gcc
-CFLAGS = -g -I includes -I includes/libft -fPIE
+# Zmiana 1: Usunąłem -lm stąd, bo to flagi kompilacji, a -lm to flaga linkera
+CFLAGS = -g -I includes -I includes/libft -fPIE 
 
 LIBFT_DIR = includes/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -lXext -lX11
+
+# Zmiana 2: Dodałem -lm tutaj. To gwarantuje, że będzie na końcu komendy.
+MLX_FLAGS = -lXext -lX11 -lm
 
 OBJ_DIR = obj
 
@@ -21,6 +24,7 @@ src/extract_colors_textures.c \
 src/clean.c \
 src/control.c \
 src/map_convert.c
+src/error.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

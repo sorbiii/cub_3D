@@ -22,9 +22,3 @@ int close_window(void *param)
 	//return (0); <- jak to jest to jest wiecej leakow?
 	exit(0);
 }
-
-void mlx_control(t_data *data)
-{
-	mlx_key_hook(data->win, ft_key_press, data);
-	mlx_hook(data->win, 17, 0L, close_window, data);
-}
