@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/05 23:41:33 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/06 14:01:09 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@ void free_everything(t_data *data)
 {
 	if (!data)
 		return ;
-	//data->map = NULL;
 	free(data->north_texture);
 	free(data->south_texture);
 	free(data->west_texture);
 	free(data->east_texture);
 	if (data->map)
 		free_double_arr(data->map);
-	if (data->line_map)
+	free(data->line_map);
+	if (data->mlx_info)
 	{
-    	free(data->line_map);
-    	data->line_map = NULL;
+		free(data->mlx_info);
+		data->mlx_info = NULL;
+	}
+	if (data->plr_info)
+	{
+		free(data->plr_info);
+		data->plr_info = NULL;
 	}
 	free(data);
 }

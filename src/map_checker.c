@@ -6,6 +6,9 @@ int	map_checker(t_data *data)
 
 	if (!data)
 		return (-1);
+	data->plr_info = malloc(sizeof(t_plr));
+	if (!data->plr_info)
+		error_and_exit(MALLOC_ERROR, data);
 	incorect_chars_checker(data, 0, 0, 0);
 	m_cpy = copy_map(data);
 	if (!m_cpy)
@@ -28,8 +31,8 @@ void	incorect_chars_checker(t_data *d, int y, int x, int count)
 				d->map[y][x] == 'N' || d->map[y][x] == 'W')
 			{
 				d->plr_facing = d->map[y][x];
-				d->plr_x = x + 0.5;
-				d->plr_y = y + 0.5;
+				d->plr_info->plr_x = x + 0.5;
+				d->plr_info->plr_y = y + 0.5;
 				d->map[y][x] = 'P';
 				count++;
 			}
