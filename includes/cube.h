@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/05 23:52:28 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/06 13:50:28 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
 # define rot_speed 0.05
 # define plr_speed 0.10
 
+typedef enum directions
+{
+    UP,
+	DOWN,
+	RIGHT,
+	LEFT
+}   directions;
+
 typedef enum error
 {
 	INCORRECT_CHAR,
@@ -37,11 +45,29 @@ typedef enum error
 	MLX_ERROR,
 	WRONG_RGB,
     WRONG_TEXTURE_OR_COLOR,
-	UP,
-	DOWN,
-	RIGHT,
-	LEFT
 }   error;
+
+typedef struct s_mlx
+{
+    void		*mlx;
+	void		*win;
+	void		*img;
+	char		*data_addr;
+	int			bits_per_pixel;
+	int			line_size;
+	int			endian;
+}   t_mlx;
+
+typedef struct s_plr
+{
+    double		plr_x;
+	double		plr_y;
+	double		p_dir_x;
+	double		p_dir_y;
+	double		plane_x;
+	double		plane_y;
+}   t_plr;
+
 
 typedef struct s_data
 {
@@ -56,25 +82,8 @@ typedef struct s_data
 	char		*east_texture;
 	int			f_color;
 	int			c_color;
-
-	//plr
-
-	double		plr_x;
-	double		plr_y;
-	double		p_dir_x;
-	double		p_dir_y;
-	double		plane_x;
-	double		plane_y;
-
-	//mlx
-
-	void		*mlx;
-	void		*win;
-	void		*img;
-	char		*data_addr;
-	int			bits_per_pixel;
-	int			line_size;
-	int			endian;
+    t_plr       *plr_info;
+    t_mlx        *mlx_info;
 }	t_data;
 
 // src/data_init.c
