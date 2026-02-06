@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/05 23:52:28 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/06 13:43:01 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	*str_whitespace_cleaner(t_data *data, char *s, int i);
 void	free_everything(t_data *data);
 
 //src/map_checker.c
-int		map_close_helper(char **m, int y, int x);
+int		map_close_helper(char **m, int y, int x, int height);
 int		map_checker(t_data *data);
 void	incorect_chars_checker(t_data *d, int y, int x, int count);
 void	is_map_closed(t_data *data, char **m, int x, int y);

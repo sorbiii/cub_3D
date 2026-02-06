@@ -51,7 +51,7 @@ void	is_map_closed(t_data *data, char **m, int x, int y)
 		{
 			if (m[y][x] == '0' || m[y][x] == 'P')
 			{
-				if (map_close_helper(m, y, x))
+				if (map_close_helper(m, y, x, data->m_height))
 				{
 					free_double_arr(m);
 					error_and_exit(MAP_ERROR, data);
@@ -63,13 +63,23 @@ void	is_map_closed(t_data *data, char **m, int x, int y)
 	}
 	return ;
 }
-int	map_close_helper(char **m, int y, int x)
+int	map_close_helper(char **m, int y, int x, int height)
 {
+	if (x == 0 || y == 0 || y == height)
+		return (1);
+	if (!m[y + 1] || !m[y - 1])
+		return (1);
+	if ((int)ft_strlen(m[y]) <= x)
+		return (1);
+	if ((int)ft_strlen(m[y + 1]) <= x)
+		return (1);
+	if ((int)ft_strlen(m[y - 1]) <= x)
+		return (1);
 	if (!m[y][x + 1] || is_valid(m[y][x + 1]))
 		return (1);
-	if (x == 0 || !m[y][x - 1] || is_valid(m[y][x - 1]))
+	if (!m[y][x - 1] || is_valid(m[y][x - 1]))
 		return (1);
-	if (y == 0 || !m[y - 1][x] || is_valid(m[y - 1][x]))
+	if (!m[y - 1][x] || is_valid(m[y - 1][x]))
 		return (1);
 	if (!m[y + 1][x] || is_valid(m[y + 1][x]))
 		return (1);

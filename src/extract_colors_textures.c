@@ -9,7 +9,9 @@ int parse_rgb(t_data *data, char *s, int result, char **line)
 	trimed = str_whitespace_cleaner(data, s, 0);
 	nums = ft_split(trimed, ',');
 	free(trimed);
-	if (!nums || !nums[0] || !nums[1] || !nums[2])
+	if (!nums || !nums[0] || !nums[1] || !nums[2] || 
+        ft_strlen(nums[2]) > 3 ||
+        ft_strlen(nums[0]) > 3 || ft_strlen(nums[1]) > 3)
 	{
 		if (nums)
 			free_double_arr(nums);

@@ -1,6 +1,2 @@
 
 michał
--> rgb - invalid read gdy jest jednocyfrowa liczba
--> rgb - jak sa 3 i wiecej cyfr w rgb i doda sie tam jakiegos chara to nie wyskakuje bląd
--> seg fault gdy jest map unclosed w ostatniej linijce mapy
-
