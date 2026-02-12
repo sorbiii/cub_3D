@@ -19,6 +19,5 @@ int close_window(void *param)
 	mlx_destroy_window(data->mlx_info->mlx, data->mlx_info->win);
 	mlx_destroy_display(data->mlx_info->mlx);
 	free_everything(data);
-	//return (0); <- jak to jest to jest wiecej leakow?
 	exit(0);
 }
