@@ -24,7 +24,9 @@ src/extract_colors_textures.c \
 src/clean.c \
 src/control.c \
 src/map_convert.c \
-src/error.c
+src/error.c \
+src/moves_and_rotations.c \
+src/moves_utils.c \
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

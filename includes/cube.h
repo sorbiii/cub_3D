@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/06 14:10:10 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/12 15:44:39 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_mlx
 	int			bits_per_pixel;
 	int			line_size;
 	int			endian;
+	int			converted_bits_x;
 }   t_mlx;
 
 typedef struct s_plr
@@ -151,12 +152,15 @@ int		is_valid_char(char c);
 char	**copy_map(t_data *map);
 int		is_valid(char c);
 
+//src/moves_and_rotations.c
 void	move_handler(int keycode, t_data *data);
 int		handler(int keycode, t_data *data);
 int		render(t_data *data);
 void	rotation_handler(int keycode, t_data *data);
 void	math_init(t_data *data);
 void	dir_and_plank_update(t_data *d, double rotspeed);
+
+//src/moves_utils.c
 void	move_right_and_left(double *x, double *y, int code, t_data *data);
 void	move_up_and_down(double *x, double *y, int code, t_data *data);
 #endif  
