@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/12 15:44:39 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/12 15:59:25 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,10 @@ void	dir_and_plank_update(t_data *d, double rotspeed);
 //src/moves_utils.c
 void	move_right_and_left(double *x, double *y, int code, t_data *data);
 void	move_up_and_down(double *x, double *y, int code, t_data *data);
+
+//src/win_utils.c
+void	ft_put_pixel(int x, int y, int color, t_data *d);
+
 #endif  
 
 

@@ -27,6 +27,7 @@ src/map_convert.c \
 src/error.c \
 src/moves_and_rotations.c \
 src/moves_utils.c \
+src/win_utils.c \
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

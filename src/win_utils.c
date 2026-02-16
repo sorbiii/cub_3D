@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   win_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:55:54 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/12 15:40:03 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/12 18:04:54 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_put_pixel(int x, int y, int color, t_data *d)
 	
 	if (x < 0 || y < 0 || x > WIDTH || y > HEIGHT)
 		return ;
-	dst = d->mlx_info->data_addr + (y * d->mlx_info->line_size) + x * d->mlx_info->converted_bits_x;
-	
+	dst = d->mlx_info->data_addr + (y * d->mlx_info->line_size) + (x * d->mlx_info->converted_bits_x);
+	*(int*)dst = color;
+	return ;
 }
