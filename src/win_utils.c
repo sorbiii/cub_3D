@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:55:54 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/16 15:30:25 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/16 15:49:11 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,4 @@ void	ft_put_pixel(int x, int y, int color, t_data *d)
 	*(int*)dst = color;
 	return ;
 }
+	

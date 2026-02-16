@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/12 15:59:25 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/16 23:06:51 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,22 @@ typedef struct s_plr
 	double		plane_y;
 }   t_plr;
 
+typedef struct s_ray
+{
+	//dda needs
+	int step_x;
+	int step_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double ray_dir_x;
+	double ray_dir_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	int map_x;
+	int map_y;
+	int side; //0 or 1
+	
+} t_ray;
 
 typedef struct s_data
 {
@@ -84,7 +100,8 @@ typedef struct s_data
 	int			f_color;
 	int			c_color;
     t_plr       *plr_info;
-    t_mlx        *mlx_info;
+    t_mlx       *mlx_info;
+	t_ray		*ray_info;
 }	t_data;
 
 // src/data_init.c

@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/06 14:01:09 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/16 18:16:37 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void free_everything(t_data *data)
 	{
 		free(data->plr_info);
 		data->plr_info = NULL;
+	}
+		if (data->ray_info)
+	{
+		free(data->ray_info);
+		data->ray_info = NULL;
 	}
 	free(data);
 }
