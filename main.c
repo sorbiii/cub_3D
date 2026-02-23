@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 	map_checker(data);
 	math_init(data);
 	init_mlx(data);
-	render(data);
+	main_loop(data);
 	return (0);
 }
 

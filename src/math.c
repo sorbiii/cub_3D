@@ -63,5 +63,18 @@ void dda_algorithm(t_data *data, t_ray *ray)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
-	printf("odleglosc do sciany: %f\n", ray->perp_wall_dist);
+}
+
+double	dda_init(double rayX, double rayY, t_data *data)
+{
+	t_ray	ray;
+
+	ray.ray_dir_x = rayX;
+	ray.ray_dir_y = rayY;
+	ray.map_x = (int)data->plr_info->plr_x;
+	ray.map_y = (int)data->plr_info->plr_y;
+	ray.side = 0;
+	ray.perp_wall_dist = 0.0;
+	dda_algorithm(data, &ray);
+	return (ray.perp_wall_dist);
 }

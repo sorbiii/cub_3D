@@ -16,6 +16,8 @@ int	render(t_data *d)
 		dda_and_pixel_put(raydirX, raydirY, d, x);
 		x++;
 	}
+	mlx_put_image_to_window(d->mlx_info->mlx, d->mlx_info->win,
+		d->mlx_info->img, 0, 0);
 	return (0);
 }
 
@@ -28,7 +30,7 @@ void	dda_and_pixel_put(double rayX, double rayY, t_data *d, int x)
 	int		y;
 
 	y = 0;
-	distance = dda(rayX, rayY, d);
+	distance = dda_init(rayX, rayY, d);
 	if (distance <= 0.0001)
 		distance = 0.0001;
 	wall_height = HEIGHT / distance;
