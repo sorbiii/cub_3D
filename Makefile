@@ -1,6 +1,6 @@
 NAME = cub_3d
 
-CC = gcc
+CC = gcc -o3
 CFLAGS = -g -I includes -I includes/libft -fPIE 
 
 LIBFT_DIR = includes/libft

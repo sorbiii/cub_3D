@@ -76,5 +76,7 @@ double	dda_init(double rayX, double rayY, t_data *data)
 	ray.side = 0;
 	ray.perp_wall_dist = 0.0;
 	dda_algorithm(data, &ray);
+	if (data->ray_info)
+		data->ray_info->side = ray.side;
 	return (ray.perp_wall_dist);
 }
