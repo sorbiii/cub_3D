@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/23 19:23:10 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/23 19:45:26 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,18 @@
 
 # define WIDTH 1600
 # define HEIGHT 900
-# define rot_speed 0.05
-# define plr_speed 0.10
+# define rot_speed 0.02
+# define plr_speed 0.02
+
+typedef struct s_keys
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+}	t_keys;
 
 typedef enum directions
 {
@@ -103,6 +113,7 @@ typedef struct s_data
 	t_plr       *plr_info;
     t_mlx       *mlx_info;
 	t_ray		*ray_info;
+	t_keys		*keys;
 }	t_data;
 
 // src/data_init.c
@@ -172,6 +183,8 @@ int		is_valid(char c);
 //src/moves_and_rotations.c
 void	move_handler(int keycode, t_data *data);
 int		handler(int keycode, t_data *data);
+int		key_release(int keycode, t_data *data);
+int		game_loop(t_data *data);
 int		render(t_data *data);
 void	rotation_handler(int keycode, t_data *data);
 void	math_init(t_data *data);
