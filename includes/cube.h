@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/12 15:59:25 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/23 17:23:22 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 500
+# define HEIGHT 500
 # define rot_speed 0.05
 # define plr_speed 0.10
 
@@ -86,6 +86,9 @@ typedef struct s_data
     t_plr       *plr_info;
     t_mlx        *mlx_info;
 }	t_data;
+
+// main.c
+int		main_loop(t_data *data);
 
 // src/data_init.c
 int is_blank_line(const char *s);
@@ -166,7 +169,9 @@ void	move_up_and_down(double *x, double *y, int code, t_data *data);
 
 //src/win_utils.c
 void	ft_put_pixel(int x, int y, int color, t_data *d);
-
+void	print_background(t_data *data);
+void	dda_and_pixel_put(double rayX, double rayY, t_data *d, int x)
+int		render(t_data *d);
 #endif  
 
 

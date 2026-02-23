@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	return (0);
 }
 
-int	render(t_data *data)
+int	main_loop(t_data *data)
 {
 	mlx_hook(data->mlx_info->win, 2, 1L<<0, handler, data);
 	mlx_loop(data->mlx_info->mlx);

@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:41:47 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/12 15:43:41 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/19 15:30:03 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ int	handler(int keycode, t_data *data)
 	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100)//W,A,S,D
 	{
 		move_handler(keycode, data);
+		render(data);
 		return (0);
 	}
 	if (keycode == 65361 || keycode == 65363)// left and right arrows
 	{
 		rotation_handler(keycode, data);
+		render(data);
 		return (0);	
 	}
 	if (keycode == 65307)
@@ -54,6 +56,7 @@ void	move_handler(int keycode, t_data *d)
 		d->plr_info->plr_y = new_y;
 	if (d->map[(int)d->plr_info->plr_y][(int)new_x] != '1')	
 			d->plr_info->plr_x = new_x;
+	print_background(d);
 	return ;
 }
 
