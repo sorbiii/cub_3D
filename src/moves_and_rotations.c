@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves_and_rotations.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:41:47 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/19 15:30:03 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/23 18:59:45 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,7 @@ int	handler(int keycode, t_data *data)
 		return (0);	
 	}
 	if (keycode == 65307)
-	{
-		mlx_destroy_window(data->mlx_info->mlx, data->mlx_info->win);
-		mlx_destroy_display(data->mlx_info->mlx);
-		free(data->mlx_info->mlx);
-		free_everything(data);
-		exit (0);
-	}
+		return (close_window(data));
 	else
 		return (0);
 }
@@ -75,7 +69,7 @@ void rotation_handler(int keycode, t_data *data)
 
 void	math_init(t_data *data)
 {
-	data->mlx_info = malloc(sizeof(t_mlx));
+	data->mlx_info = calloc(1, sizeof(t_mlx));
 	if (!data->mlx_info)
 		error_and_exit(MALLOC_ERROR, data);
 	data->plr_info->p_dir_x = 0;

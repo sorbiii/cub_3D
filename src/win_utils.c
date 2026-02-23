@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   win_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:55:54 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/16 16:28:30 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/23 19:00:27 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_put_pixel(int x, int y, int color, t_data *d)
 	*(int*)dst = color;
 	return ;
 }
-
+	
 void	print_background(t_data *data)
 {
 	int i = 0;

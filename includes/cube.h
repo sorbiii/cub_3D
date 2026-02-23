@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/23 18:56:20 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/23 18:59:02 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,14 @@ void	move_up_and_down(double *x, double *y, int code, t_data *data);
 //src/win_utils.c
 void	ft_put_pixel(int x, int y, int color, t_data *d);
 void	print_background(t_data *data);
-void	dda_and_pixel_put(double rayX, double rayY, t_data *d, int x)
+void	dda_and_pixel_put(double rayX, double rayY, t_data *d, int x);
 int		render(t_data *d);
+
+//src/math.c
+void dda_utils(t_data *data, t_ray *ray);
+void dda_loop(t_data *data, t_ray *ray);
+void dda_algorithm(t_data *data, t_ray *ray);
+
 #endif  
 
 
