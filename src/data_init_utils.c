@@ -10,16 +10,6 @@ char *trim_spaces(const char *s)
 	return (trim);
 }
 
-void null_struct(t_data *data)
-{
-	data->north_texture = NULL;
-	data->south_texture = NULL;
-	data->west_texture = NULL;
-	data->east_texture = NULL;
-	data->f_color = -1; 
-	data->c_color = -1;
-}
-
 void check_texture_extention(t_data *data, char *s, char **line)
 {
 	int fd;

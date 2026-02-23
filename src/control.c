@@ -15,9 +15,16 @@ int close_window(void *param)
 	t_data *data;
 
 	data = (t_data *)param;
-	mlx_destroy_image(data->mlx_info->mlx, data->mlx_info->img);
-	mlx_destroy_window(data->mlx_info->mlx, data->mlx_info->win);
-	mlx_destroy_display(data->mlx_info->mlx);
+	if (data && data->mlx_info && data->mlx_info->mlx)
+	{
+		if (data->mlx_info->img)
+			mlx_destroy_image(data->mlx_info->mlx, data->mlx_info->img);
+		if (data->mlx_info->win)
+			mlx_destroy_window(data->mlx_info->mlx, data->mlx_info->win);
+		mlx_destroy_display(data->mlx_info->mlx);
+		free(data->mlx_info->mlx);
+		data->mlx_info->mlx = NULL;
+	}
 	free_everything(data);
 	exit(0);
 }

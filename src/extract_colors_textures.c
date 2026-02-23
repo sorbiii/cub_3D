@@ -78,7 +78,7 @@ void textures_to_struct(t_data *data, char **line, int *num_of_elems, char **tex
 }
 
 
-void extract_utils(t_data *data, char **line, int *num_of_elems)
+void extract(t_data *data, char **line, int *num_of_elems)
 {
     char *val;
 
@@ -101,4 +101,37 @@ void extract_utils(t_data *data, char **line, int *num_of_elems)
         free(*line);
         error_and_exit(INCORRECT_CHAR, data);
     }
+}
+
+char *textures_colors_to_struct(t_data *data, char **line)
+{
+	int num_of_elem;
+	char *ln;
+	char *trimmed;
+
+	num_of_elem = 0;
+	null_struct(data);
+	while (num_of_elem < 6)
+	{
+		ln = extract_one_line(data, line);
+		while (ln && is_blank_line(ln))
+		{
+			free(ln);
+			ln = extract_one_line(data, line);
+		}
+		if (!ln)
+			error_and_exit(WRONG_TEXTURE_OR_COLOR, data);
+		trimmed = trim_spaces(ln);
+		free(ln);
+		ln = trimmed;
+		extract(data, &ln, &num_of_elem);
+		free(ln);
+	}
+	ln = extract_one_line(data, line);
+	while (ln && is_blank_line(ln))
+	{
+		free(ln);
+		ln = extract_one_line(data, line);
+	}
+	return (ln);
 }

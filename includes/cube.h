@@ -6,7 +6,7 @@
 /*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/16 23:06:51 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/23 18:44:35 by sorbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_ray
 	int map_x;
 	int map_y;
 	int side; //0 or 1
+	double perp_wall_dist;
 	
 } t_ray;
 
@@ -99,19 +100,21 @@ typedef struct s_data
 	char		*east_texture;
 	int			f_color;
 	int			c_color;
-    t_plr       *plr_info;
+	t_plr       *plr_info;
     t_mlx       *mlx_info;
 	t_ray		*ray_info;
 }	t_data;
 
 // src/data_init.c
-int is_blank_line(const char *s);
 void init_data(int argc, char **argv, t_data *data);
 void read_from_file(t_data *data, int fd);
+void null_struct(t_data *data);
+
+//src/map_parsing.c
+int is_blank_line(const char *s);
+int calculate_map_height(char **line, t_data *data);
 char *remove_first_line(char **src_line, int rest_len);
 char *extract_one_line(t_data *data, char **line);
-char *textures_colors_to_struct(t_data *data, char **line);
-int calculate_map_height(char **line, t_data *data);
 
 //src/map_convert.c
 char **convert_map(t_data *data, char **big_line, char *first_map_line);
@@ -121,7 +124,6 @@ void pad_map_lines(t_data *data, int max_w);
 
 // src/data_init_utils.c
 char *trim_spaces(const char *s);
-void null_struct(t_data *data);
 void check_texture_extention(t_data *data, char *s, char **line);
 int is_valid_extention(char *s, char *extention, int extention_len);
 int ft_strcmp(const char *s1, const char *s2);
@@ -129,16 +131,15 @@ int same_textures(t_data *data);
 int	check_no_duplicates(char *s1, char *s2, char *s3, char *s4);
 
 // src/extract_colors_textures.c
-int	rgb_error(int r, int g, int b, char **nums);
 int parse_rgb(t_data *data, char *s, int result, char **line);
 void colors_to_struct(t_data *data, char **line, int *num_of_elems, int *color);
 void textures_to_struct(t_data *data, char **line, int *num_of_elems, char **texture);
-void extract_utils(t_data *data, char **line, int *num_of_elems);
+void extract(t_data *data, char **line, int *num_of_elems);
+char *textures_colors_to_struct(t_data *data, char **line);
 
 //src/control.c
 int		close_window(void *param);
 int		ft_key_press(int keycode, void *param);
-void	mlx_control(t_data *data);
 
 //src/error.c
 void	error_and_exit(int i, t_data *data);
@@ -156,7 +157,6 @@ int		map_close_helper(char **m, int y, int x, int height);
 int		map_checker(t_data *data);
 void	incorect_chars_checker(t_data *d, int y, int x, int count);
 void	is_map_closed(t_data *data, char **m, int x, int y);
-void	error_and_exit(int i, t_data *data);
 char	**copy_map(t_data *map);
 int		is_valid_char(char c);
 char	*str_whitespace_cleaner(t_data *data, char *s, int i);
@@ -183,6 +183,11 @@ void	move_up_and_down(double *x, double *y, int code, t_data *data);
 
 //src/win_utils.c
 void	ft_put_pixel(int x, int y, int color, t_data *d);
+
+//src/math.c
+void dda_utils(t_data *data, t_ray *ray);
+void dda_loop(t_data *data, t_ray *ray);
+void dda_algorithm(t_data *data, t_ray *ray);
 
 #endif  
 
