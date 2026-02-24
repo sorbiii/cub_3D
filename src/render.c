@@ -1,5 +1,21 @@
 #include "../includes/cube.h"
 
+int	shade_color(int color, double factor)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	if (factor < 0.2)
+		factor = 0.2;
+	if (factor > 1.0)
+		factor = 1.0;
+	r = (int)(((color >> 16) & 0xFF) * factor);
+	g = (int)(((color >> 8) & 0xFF) * factor);
+	b = (int)((color & 0xFF) * factor);
+	return ((r << 16) | (g << 8) | b);
+}
+
 int	render(t_data *d)
 {
 	int 	x;
@@ -25,14 +41,20 @@ void	dda_and_pixel_put(double rayX, double rayY, t_data *d, int x)
 {
 	double	distance;
 	double	wall_height;
+	double	shade_factor;
 	int		b_wall_pixel;
 	int		t_wall_pixel;
+	int		wall_color;
 	int		y;
 
 	y = 0;
 	distance = dda_init(rayX, rayY, d);
 	if (distance <= 0.0001)
 		distance = 0.0001;
+	shade_factor = 1.0 / (1.0 + distance * 0.07);
+	if (d->ray_info->side == 1)
+		shade_factor *= 0.75;
+	wall_color = shade_color(d->f_color, shade_factor);
 	wall_height = HEIGHT / distance;
 	b_wall_pixel = HEIGHT / 2 + wall_height / 2;
 	t_wall_pixel = HEIGHT / 2 - wall_height / 2;
@@ -45,7 +67,7 @@ void	dda_and_pixel_put(double rayX, double rayY, t_data *d, int x)
 		if (y < t_wall_pixel)
 			ft_put_pixel(x, y, 0xAAAAAA, d);
 		else if (y < b_wall_pixel)
-			ft_put_pixel(x, y, d->f_color, d);
+			ft_put_pixel(x, y, wall_color, d);
 		else
 			ft_put_pixel(x, y, d->c_color, d);
 		y++;
