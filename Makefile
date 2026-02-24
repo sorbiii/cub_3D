@@ -29,7 +29,8 @@ src/win_utils.c \
 src/render.c \
 src/math.c \
 src/map_parsing.c \
-src/textures_colors_utils.c
+src/textures_colors_utils.c \
+src/dda.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
