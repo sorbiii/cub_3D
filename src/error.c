@@ -47,6 +47,8 @@ void	error_and_exit(int i, t_data *data)
 		write(2, "WRONG RGB\n", 11);
 	else if (i == WRONG_TEXTURE_OR_COLOR)
 		write(2, "WRONG TEXTURE OR COLOR\n", 24);
+	else if (i == MLX_ERROR)
+		write(2, "MLX ERROR\n", 10);
 	exit(-1);
 }
 

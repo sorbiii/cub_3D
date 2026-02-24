@@ -1,21 +1,5 @@
 #include "../includes/cube.h"
 
-int	shade_color(int color, double factor)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	if (factor < 0.2)
-		factor = 0.2;
-	if (factor > 1.0)
-		factor = 1.0;
-	r = (int)(((color >> 16) & 0xFF) * factor);
-	g = (int)(((color >> 8) & 0xFF) * factor);
-	b = (int)((color & 0xFF) * factor);
-	return ((r << 16) | (g << 8) | b);
-}
-
 int	render(t_data *d)
 {
 	int 	x;
@@ -39,37 +23,42 @@ int	render(t_data *d)
 
 void	dda_and_pixel_put(double rayX, double rayY, t_data *d, int x)
 {
-	double	distance;
+	t_ray	ray;
 	double	wall_height;
-	double	shade_factor;
 	int		b_wall_pixel;
 	int		t_wall_pixel;
-	int		wall_color;
 	int		y;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+	int		draw_start;
+	int		draw_end;
 
 	y = 0;
-	distance = dda_init(rayX, rayY, d);
-	if (distance <= 0.0001)
-		distance = 0.0001;
-	shade_factor = 1.0 / (1.0 + distance * 0.07);
-	if (d->ray_info->side == 1)
-		shade_factor *= 0.75;
-	wall_color = shade_color(d->f_color, shade_factor);
-	wall_height = HEIGHT / distance;
-	b_wall_pixel = HEIGHT / 2 + wall_height / 2;
-	t_wall_pixel = HEIGHT / 2 - wall_height / 2;
-	if (t_wall_pixel < 0)
-		t_wall_pixel = 0;
-	if (b_wall_pixel >= HEIGHT)
-		b_wall_pixel = HEIGHT - 1;
+	ray = dda_init(rayX, rayY, d);
+	if (ray.perp_wall_dist <= 0.0001)
+		ray.perp_wall_dist = 0.0001;
+	wall_height = HEIGHT / ray.perp_wall_dist;
+	draw_start = -wall_height / 2 + HEIGHT / 2;
+	if (draw_start < 0)
+		draw_start = 0;
+	draw_end = wall_height / 2 + HEIGHT / 2;
+	if (draw_end >= HEIGHT)
+		draw_end = HEIGHT - 1;
+	step = 1.0 * 64 / wall_height;
+	tex_pos = (draw_start - HEIGHT / 2 + wall_height / 2) * step;
 	while (y < HEIGHT)
 	{
-		if (y < t_wall_pixel)
-			ft_put_pixel(x, y, 0xAAAAAA, d);
-		else if (y < b_wall_pixel)
-			ft_put_pixel(x, y, wall_color, d);
-		else
+		if (y < draw_start)
 			ft_put_pixel(x, y, d->c_color, d);
+		else if (y <= draw_end)
+		{
+			tex_y = (int)tex_pos % 64;
+			tex_pos += step;
+			ft_put_pixel(x, y, get_texture_color(d, &ray, tex_y), d);
+		}
+		else
+			ft_put_pixel(x, y, d->f_color, d);
 		y++;
 	}
 }

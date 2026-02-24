@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/23 23:23:35 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/24 15:05:17 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ typedef enum error
     WRONG_TEXTURE_OR_COLOR,
 }   error;
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		line_size;
+	int		endian;
+}	t_texture;
+
 typedef struct s_mlx
 {
     void		*mlx;
@@ -67,6 +78,10 @@ typedef struct s_mlx
 	int			line_size;
 	int			endian;
 	int			converted_bits_x;
+	t_texture	north;
+	t_texture	south;
+	t_texture	east;
+	t_texture	west;
 }   t_mlx;
 
 typedef struct s_plr
@@ -94,6 +109,7 @@ typedef struct s_ray
 	int map_y;
 	int side; //0 or 1
 	double perp_wall_dist;
+	double wall_x;
 	
 } t_ray;
 
@@ -204,7 +220,9 @@ int		render(t_data *d);
 void dda_utils(t_data *data, t_ray *ray);
 void dda_loop(t_data *data, t_ray *ray);
 void dda_algorithm(t_data *data, t_ray *ray);
-double dda_init(double rayX, double rayY, t_data *data);
+t_ray dda_init(double rayX, double rayY, t_data *data);
+void load_textures(t_data *data);
+int get_texture_color(t_data *d, t_ray *ray, int tex_y);
 
 int	main_loop(t_data *data);
 
