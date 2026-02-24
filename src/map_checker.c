@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_checker.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 16:13:13 by mzapora           #+#    #+#             */
+/*   Updated: 2026/02/24 16:14:12 by mzapora          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cube.h"
 
 int	map_checker(t_data *data)
 {
-	char **m_cpy;
+	char	**m_cpy;
 
 	if (!data)
 		return (-1);
@@ -27,8 +39,8 @@ void	incorect_chars_checker(t_data *d, int y, int x, int count)
 		{
 			if (is_valid_char(d->map[y][x]))
 				error_and_exit(INCORRECT_CHAR, d);
-			if (d->map[y][x] == 'S' || d->map[y][x] == 'E' || \
-				d->map[y][x] == 'N' || d->map[y][x] == 'W')
+			if (d->map[y][x] == 'S' || d->map[y][x] == 'E'
+					|| d->map[y][x] == 'N' || d->map[y][x] == 'W')
 			{
 				d->plr_facing = d->map[y][x];
 				d->plr_info->plr_x = x + 0.5;
@@ -66,6 +78,7 @@ void	is_map_closed(t_data *data, char **m, int x, int y)
 	}
 	return ;
 }
+
 int	map_close_helper(char **m, int y, int x, int height)
 {
 	if (x == 0 || y == 0 || y == height)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/23 17:32:55 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/24 16:04:16 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-void free_everything(t_data *data)
+void	free_everything(t_data *data)
 {
 	if (!data)
 		return ;
@@ -43,8 +43,8 @@ void free_everything(t_data *data)
 
 char	*str_whitespace_cleaner(t_data *data, char *s, int i)
 {
-	char *str;
-	int count;
+	char	*str;
+	int		count;
 
 	count = 0;
 	while (s[i])
@@ -53,7 +53,7 @@ char	*str_whitespace_cleaner(t_data *data, char *s, int i)
 			count++;
 		i++;
 	}
-	str = malloc((count * sizeof(char)) + 1 );
+	str = malloc((count * sizeof(char)) + 1);
 	if (!str)
 		error_and_exit(MALLOC_ERROR, data);
 	i = 0;
@@ -68,10 +68,10 @@ char	*str_whitespace_cleaner(t_data *data, char *s, int i)
 	return (str);
 }
 
-void free_double_arr(char **arr)
+void	free_double_arr(char **arr)
 {
-	int j;
-	
+	int	j;
+
 	if (!arr)
 		return ;
 	j = 0;
@@ -87,4 +87,3 @@ void	free_map_rows(char **new_map, int count)
 		free(new_map[count]);
 	free(new_map);
 }
-

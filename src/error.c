@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 16:12:29 by mzapora           #+#    #+#             */
+/*   Updated: 2026/02/24 16:12:47 by mzapora          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cube.h"
 
 int	rgb_error(int r, int g, int b, char **nums)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (r > 255 || r < 0)
@@ -54,10 +66,10 @@ void	error_and_exit(int i, t_data *data)
 
 int	rgb_connect_and_errors(char **nums, t_data *data, char *s, char **line)
 {
-	int r;
-	int g;
-	int b;
-	int result;
+	int	r;
+	int	g;
+	int	b;
+	int	result;
 
 	r = ft_atoi(nums[0]);
 	g = ft_atoi(nums[1]);

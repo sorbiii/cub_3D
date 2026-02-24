@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   moves_and_rotations.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:41:47 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/24 14:56:01 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/24 15:56:07 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-
 int	handler(int keycode, t_data *data)
 {
-	if (keycode == 119) // W
+	if (keycode == 119)
 		data->keys->w = 1;
-	else if (keycode == 97) // A
+	else if (keycode == 97)
 		data->keys->a = 1;
-	else if (keycode == 115) // S
+	else if (keycode == 115)
 		data->keys->s = 1;
-	else if (keycode == 100) // D
+	else if (keycode == 100)
 		data->keys->d = 1;
-	else if (keycode == 65361) // left arrow
+	else if (keycode == 65361)
 		data->keys->left = 1;
-	else if (keycode == 65363) // right arrow
+	else if (keycode == 65363)
 		data->keys->right = 1;
-	else if (keycode == 65307) // ESC
+	else if (keycode == 65307)
 		return (close_window(data));
 	return (0);
 }
@@ -82,39 +81,20 @@ void	move_handler(int keycode, t_data *d)
 		move_right_and_left(&new_x, &new_y, RIGHT, d);
 	if (d->map[(int)new_y][(int)d->plr_info->plr_x] != '1')
 		d->plr_info->plr_y = new_y;
-	if (d->map[(int)d->plr_info->plr_y][(int)new_x] != '1')	
+	if (d->map[(int)d->plr_info->plr_y][(int)new_x] != '1')
 		d->plr_info->plr_x = new_x;
 	return ;
 }
 
-void rotation_handler(int keycode, t_data *data)
+void	rotation_handler(int keycode, t_data *data)
 {
-	if (keycode == 65361)//left
+	if (keycode == 65361)
 	{
 		dir_and_plank_update(data, -rot_speed);
 	}
-	else if (keycode == 65363)//right
+	else if (keycode == 65363)
 	{
 		dir_and_plank_update(data, rot_speed);
 	}
 	return ;
-}
-
-void	dir_and_plank_update(t_data *d, double rotspeed)
-{
-	double	old_plane_x;
-	double	old_dir_x;
-	double	cos_rot;
-	double	sin_rot;
-
-	old_dir_x = d->plr_info->p_dir_x;
-	old_plane_x = d->plr_info->plane_x;
-	cos_rot = cos(rotspeed);
-	sin_rot = sin(rotspeed);
-
-	d->plr_info->p_dir_x = d->plr_info->p_dir_x * cos_rot - d->plr_info->p_dir_y * sin_rot;
-	d->plr_info->p_dir_y = old_dir_x * sin_rot + d->plr_info->p_dir_y * cos_rot;
-
-	d->plr_info->plane_x = d->plr_info->plane_x * cos_rot - d->plr_info->plane_y * sin_rot;
-	d->plr_info->plane_y = old_plane_x *sin_rot + d->plr_info->plane_y * cos_rot;
 }
