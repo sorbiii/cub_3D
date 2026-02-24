@@ -1,6 +1,6 @@
 #include "../includes/cube.h"
 
-void fill_map_lines(t_data *data, char **big_line)
+void	fill_map_lines(t_data *data, char **big_line)
 {
 	int		i;
 	char	*one_line;
@@ -12,7 +12,7 @@ void fill_map_lines(t_data *data, char **big_line)
 		if (is_blank_line(one_line))
 		{
 			free(one_line);
-			break;
+			break ;
 		}
 		data->map[i] = one_line;
 		i++;
@@ -25,7 +25,7 @@ void fill_map_lines(t_data *data, char **big_line)
 	}
 }
 
-char **convert_map(t_data *data, char **big_line, char *first_map_line)
+char	**convert_map(t_data *data, char **big_line, char *first_map_line)
 {
 	char	**new_map;
 	char	*line_cpy;
@@ -52,7 +52,7 @@ char **convert_map(t_data *data, char **big_line, char *first_map_line)
 	return (data->map);
 }
 
-void pad_map_lines(t_data *data, int max_w)
+void	pad_map_lines(t_data *data, int max_w)
 {
 	int		i;
 	char	*padded;
@@ -70,7 +70,7 @@ void pad_map_lines(t_data *data, int max_w)
 	}
 }
 
-void add_spaces_to_map(t_data *data)
+void	add_spaces_to_map(t_data *data)
 {
 	int	i;
 	int	j;
@@ -83,8 +83,8 @@ void add_spaces_to_map(t_data *data)
 		j = 0;
 		while (data->map[i][j] == ' ' || data->map[i][j] == '\t')
 			j++;
-		while (data->map[i][j] && data->map[i][j] != ' '
-			&& data->map[i][j] != '\t')
+		while (data->map[i][j] && data->map[i][j] != ' ' &&
+				data->map[i][j] != '\t')
 			j++;
 		if (j > max_w)
 			max_w = j;
@@ -92,4 +92,14 @@ void add_spaces_to_map(t_data *data)
 	}
 	pad_map_lines(data, max_w);
 	data->m_width = max_w;
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

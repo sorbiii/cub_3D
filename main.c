@@ -1,24 +1,5 @@
 #include "includes/cube.h"
 
-void init_mlx(t_data *data)
-{
-	data->mlx_info->mlx = mlx_init();
-	if (!data->mlx_info->mlx)
-		error_and_exit(MLX_ERROR, data);
-	data->mlx_info->win = mlx_new_window(data->mlx_info->mlx, WIDTH, HEIGHT, "CUB3D");
-	if (!data->mlx_info->win)
-		error_and_exit(MLX_ERROR, data);
-	data->mlx_info->img = mlx_new_image(data->mlx_info->mlx, WIDTH, HEIGHT);
-	if (!data->mlx_info->img)
-		error_and_exit(MLX_ERROR, data);
-	data->mlx_info->data_addr = mlx_get_data_addr(data->mlx_info->img,
-			&data->mlx_info->bits_per_pixel, &data->mlx_info->line_size,
-			&data->mlx_info->endian);
-	if (!data->mlx_info->data_addr)
-		error_and_exit(MLX_ERROR, data);
-	data->mlx_info->converted_bits_x = data->mlx_info->bits_per_pixel / 8;
-}
-
 int main(int argc, char **argv)
 {
 	t_data *data;

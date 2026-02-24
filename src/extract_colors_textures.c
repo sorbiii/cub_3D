@@ -1,132 +1,43 @@
 #include "../includes/cube.h"
 
-int parse_rgb(t_data *data, char *s, int result, char **line)
+void	dispatch_element(t_data *data, char **line, int *num_of_elems)
 {
-	char **nums;
-    char *trimed;
-
-    trimed = NULL;
-	trimed = str_whitespace_cleaner(data, s, 0);
-	nums = ft_split(trimed, ',');
-	free(trimed);
-	if (!nums || !nums[0] || !nums[1] || !nums[2] || 
-        ft_strlen(nums[2]) > 3 ||
-        ft_strlen(nums[0]) > 3 || ft_strlen(nums[1]) > 3)
+	if (ft_strncmp(*line, "NO", 2) == 0 && ((*line)[2] == ' '
+		|| (*line)[2] == '\t'))
+		textures_to_struct(data, line, num_of_elems, &data->north_texture);
+	else if (ft_strncmp(*line, "SO", 2) == 0 && ((*line)[2] == ' '
+		|| (*line)[2] == '\t'))
+		textures_to_struct(data, line, num_of_elems, &data->south_texture);
+	else if (ft_strncmp(*line, "WE", 2) == 0 && ((*line)[2] == ' '
+		|| (*line)[2] == '\t'))
+		textures_to_struct(data, line, num_of_elems, &data->west_texture);
+	else if (ft_strncmp(*line, "EA", 2) == 0 && ((*line)[2] == ' '
+		|| (*line)[2] == '\t'))
+		textures_to_struct(data, line, num_of_elems, &data->east_texture);
+	else if ((*line)[0] == 'F' && ((*line)[1] == ' '
+		|| (*line)[1] == '\t'))
+		colors_to_struct(data, line, num_of_elems, &data->f_color);
+	else if ((*line)[0] == 'C' && ((*line)[1] == ' '
+		|| (*line)[1] == '\t'))
+		colors_to_struct(data, line, num_of_elems, &data->c_color);
+	else
 	{
-		if (nums)
-			free_double_arr(nums);
-        free(s);
-        if (line)
-            free(*line);
-		error_and_exit(WRONG_RGB, data);
+		free(*line);
+		error_and_exit(INCORRECT_CHAR, data);
 	}
-	result = rgb_connect_and_errors(nums, data, s, line);
-	return (result);
 }
 
-void colors_to_struct(t_data *data, char **line, int *num_of_elems, int *color)
+void	extract(t_data *data, char **line, int *num_of_elems)
 {
-    char *val;
-
-    if (!line || !*line)
-        error_and_exit(MAP_ERROR, data);
-
-    val = trim_spaces((*line) + 1);
-    if (val)
-        *color = parse_rgb(data, val, 0, line);
-    else
-        *color = parse_rgb(data, "", 0, line);
-
-    if (val)
-        free(val);
-
-    if (*color == -1)
-    {
-        free(*line);
-        *line = NULL;
-        error_and_exit(MAP_ERROR, data);
-    }
-
-    (*num_of_elems)++;
+	if (!line || !*line)
+		return ;
+	dispatch_element(data, line, num_of_elems);
 }
 
-
-void textures_to_struct(t_data *data, char **line, int *num_of_elems, char **texture)
+char	*get_next_non_blank_line(t_data *data, char **line)
 {
-    char *val;
+	char	*ln;
 
-    if (!num_of_elems || !texture || !line || !*line)
-        error_and_exit(MAP_ERROR, data);
-
-    val = trim_spaces((*line) + 2);
-    if (val)
-        *texture = ft_strdup(val);
-    else
-        *texture = ft_strdup("");
-
-    if (val)
-        free(val);
-
-    if (!*texture)
-    {
-        free(*line);
-        *line = NULL;
-        error_and_exit(MALLOC_ERROR, data);
-    }
-	check_texture_extention(data, *texture, line);
-    (*num_of_elems)++;
-}
-
-
-void extract(t_data *data, char **line, int *num_of_elems)
-{
-    char *val;
-
-    if (!line || !*line)
-        return;
-    if (ft_strncmp(*line, "NO", 2) == 0 && ((*line)[2] == ' ' || (*line)[2] == '\t'))
-            textures_to_struct(data, line, num_of_elems, &data->north_texture);
-    else if (ft_strncmp(*line, "SO", 2) == 0 && ((*line)[2] == ' ' || (*line)[2] == '\t'))
-        textures_to_struct(data, line, num_of_elems, &data->south_texture);
-    else if (ft_strncmp(*line, "WE", 2) == 0 && ((*line)[2] == ' ' || (*line)[2] == '\t'))
-        textures_to_struct(data, line, num_of_elems, &data->west_texture);
-    else if (ft_strncmp(*line, "EA", 2) == 0 && ((*line)[2] == ' ' || (*line)[2] == '\t'))
-        textures_to_struct(data, line, num_of_elems, &data->east_texture);
-    else if ((*line)[0] == 'F' && ((*line)[1] == ' ' || (*line)[1] == '\t'))
-        colors_to_struct(data, line, num_of_elems, &data->f_color);
-    else if ((*line)[0] == 'C' && ((*line)[1] == ' ' || (*line)[1] == '\t'))
-        colors_to_struct(data, line, num_of_elems, &data->c_color);
-    else
-    {
-        free(*line);
-        error_and_exit(INCORRECT_CHAR, data);
-    }
-}
-
-char *textures_colors_to_struct(t_data *data, char **line)
-{
-	int num_of_elem;
-	char *ln;
-	char *trimmed;
-
-	num_of_elem = 0;
-	null_struct(data);
-	while (num_of_elem < 6)
-	{
-		ln = extract_one_line(data, line);
-		while (ln && is_blank_line(ln))
-		{
-			free(ln);
-			ln = extract_one_line(data, line);
-		}
-		if (!ln)
-			error_and_exit(WRONG_TEXTURE_OR_COLOR, data);
-		trimmed = trim_spaces(ln);
-		free(ln);
-		ln = trimmed;
-		extract(data, &ln, &num_of_elem);
-		free(ln);
-	}
 	ln = extract_one_line(data, line);
 	while (ln && is_blank_line(ln))
 	{
@@ -134,4 +45,25 @@ char *textures_colors_to_struct(t_data *data, char **line)
 		ln = extract_one_line(data, line);
 	}
 	return (ln);
+}
+
+char	*textures_colors_to_struct(t_data *data, char **line)
+{
+	int		num_of_elem;
+	char	*ln;
+	char	*trimmed;
+
+	num_of_elem = 0;
+	null_struct(data);
+	while (num_of_elem < 6)
+	{
+		ln = get_next_non_blank_line(data, line);
+		if (!ln)
+			error_and_exit(WRONG_TEXTURE_OR_COLOR, data);
+		trimmed = trim_spaces(ln);
+		free(ln);
+		extract(data, &trimmed, &num_of_elem);
+		free(trimmed);
+	}
+	return (get_next_non_blank_line(data, line));
 }

@@ -1,8 +1,8 @@
 #include "../includes/cube.h"
 
-int is_blank_line(const char *s)
+int	is_blank_line(const char *s)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return (1);
@@ -16,11 +16,11 @@ int is_blank_line(const char *s)
 	return (1);
 }
 
-char *remove_first_line(char **src_line, int rest_len)
+char	*remove_first_line(char **src_line, int rest_len)
 {
-	int len;
-	int cut_len;
-	char *new_line;
+	int		len;
+	int		cut_len;
+	char	*new_line;
 
 	if (!src_line || !*src_line)
 		return (NULL);
@@ -36,11 +36,11 @@ char *remove_first_line(char **src_line, int rest_len)
 	return (new_line);
 }
 
-char *extract_one_line(t_data *data, char **line)
+char	*extract_one_line(t_data *data, char **line)
 {
-	int i;
-	char *new_line;
-	int remain_len;
+	int		i;
+	char	*new_line;
+	int		remain_len;
 
 	if (!line || !*line || (*line)[0] == '\0')
 		return (NULL);
@@ -61,37 +61,43 @@ char *extract_one_line(t_data *data, char **line)
 	return (new_line);
 }
 
-int calculate_map_height(char **line, t_data *data)
+char	*skip_blank_lines(t_data *data, char **line)
 {
-	int i;
-	int height;
-	char *ln;
+	char	*ln;
 
-	i = 0;
-	height = 0;
 	ln = extract_one_line(data, line);
-	while (ln)
+	while (ln && is_blank_line(ln))
 	{
-		while (is_blank_line(ln))
-		{
-			free(ln);
-			ln = extract_one_line(data, line);
-			if (!ln)
-				return (height);
-			if (!is_blank_line(ln))
-			{
-				free(ln);
-				if (line && *line)
-				{
-					free(*line);
-					*line = NULL;
-				}
-				error_and_exit(INCORRECT_CHAR, data);
-			}
-		}
-		height += 1;
 		free(ln);
 		ln = extract_one_line(data, line);
+		if (!ln)
+			return (NULL);
+		if (!is_blank_line(ln))
+		{
+			free(ln);
+			if (line && *line)
+			{
+				free(*line);
+				*line = NULL;
+			}
+			error_and_exit(INCORRECT_CHAR, data);
+		}
+	}
+	return (ln);
+}
+
+int	calculate_map_height(char **line, t_data *data)
+{
+	int		height;
+	char	*ln;
+
+	height = 0;
+	ln = skip_blank_lines(data, line);
+	while (ln)
+	{
+		height += 1;
+		free(ln);
+		ln = skip_blank_lines(data, line);
 	}
 	free(ln);
 	return (height);

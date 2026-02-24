@@ -1,8 +1,8 @@
 #include "../includes/cube.h"
 
-char *trim_spaces(const char *s)
+char	*trim_spaces(const char *s)
 {
-	char *trim;
+	char	*trim;
 
 	if (!s)
 		return (NULL);
@@ -10,9 +10,10 @@ char *trim_spaces(const char *s)
 	return (trim);
 }
 
-void check_texture_extention(t_data *data, char *s, char **line)
+void	check_texture_extention(t_data *data, char *s, char **line)
 {
-	int fd;
+	int	fd;
+
 	if (is_valid_extention(s, ".xpm", ft_strlen(".xpm")) == -1)
 	{
 		free(*line);
@@ -26,17 +27,18 @@ void check_texture_extention(t_data *data, char *s, char **line)
 	}
 }
 
-int same_textures(t_data *data)
+int	same_textures(t_data *data)
 {
-	if (check_no_duplicates(data->north_texture, data->east_texture, data->south_texture, data->west_texture) != 0)
+	if (check_no_duplicates(data->north_texture,
+			data->east_texture, data->south_texture, data->west_texture) != 0)
 		return (-1);
 	return (0);
 }
 
-int is_valid_extention(char *s, char *extention, int extention_len)
+int	is_valid_extention(char *s, char *extention, int extention_len)
 {
-	char *pos;
-	int len;
+	char	*pos;
+	int		len;
 
 	if (!s)
 		return (-1);
@@ -74,14 +76,4 @@ int	check_no_duplicates(char *s1, char *s2, char *s3, char *s4)
 		i++;
 	}
 	return (0);
-}
-
-int ft_strcmp(const char *s1, const char *s2)
-{
-    while (*s1 && *s2 && (*s1 == *s2))
-	{
-        s1++;
-        s2++;
-    }
-    return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

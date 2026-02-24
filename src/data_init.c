@@ -1,20 +1,59 @@
 #include "../includes/cube.h"
 
-void null_struct(t_data *data)
+void	null_struct(t_data *data)
 {
 	data->north_texture = NULL;
 	data->south_texture = NULL;
 	data->west_texture = NULL;
 	data->east_texture = NULL;
-	data->f_color = -1; 
+	data->f_color = -1;
 	data->c_color = -1;
 }
 
-void read_from_file(t_data *data, int fd)
+void	init_mlx(t_data *data)
 {
-	char *line;
-	char *temp;
-	char *first_map_line;
+	data->mlx_info->mlx = mlx_init();
+	if (!data->mlx_info->mlx)
+		error_and_exit(MLX_ERROR, data);
+	data->mlx_info->win = mlx_new_window(data->mlx_info->mlx,
+			WIDTH, HEIGHT, "CUB3D");
+	if (!data->mlx_info->win)
+		error_and_exit(MLX_ERROR, data);
+	data->mlx_info->img = mlx_new_image(data->mlx_info->mlx, WIDTH, HEIGHT);
+	if (!data->mlx_info->img)
+		error_and_exit(MLX_ERROR, data);
+	data->mlx_info->data_addr = mlx_get_data_addr(data->mlx_info->img,
+			&data->mlx_info->bits_per_pixel, &data->mlx_info->line_size,
+			&data->mlx_info->endian);
+	if (!data->mlx_info->data_addr)
+		error_and_exit(MLX_ERROR, data);
+	data->mlx_info->converted_bits_x = data->mlx_info->bits_per_pixel / 8;
+}
+
+void	math_init(t_data *data)
+{
+	data->mlx_info = calloc(1, sizeof(t_mlx));
+	if (!data->mlx_info)
+		error_and_exit(MALLOC_ERROR, data);
+	data->plr_info->p_dir_x = 0;
+	data->plr_info->p_dir_y = 0;
+	if (data->plr_facing == 'N')
+		data->plr_info->p_dir_y = -1;
+	else if (data->plr_facing == 'S')
+		data->plr_info->p_dir_y = 1;
+	else if (data->plr_facing == 'E')
+		data->plr_info->p_dir_x = 1;
+	else if (data->plr_facing == 'W')
+		data->plr_info->p_dir_x = -1;
+	data->plr_info->plane_x = -data->plr_info->p_dir_y * 0.66;
+	data->plr_info->plane_y = data->plr_info->p_dir_x * 0.66;
+}
+
+void	read_from_file(t_data *data, int fd)
+{
+	char	*line;
+	char	*temp;
+	char	*first_map_line;
 
 	data->line_map = ft_strdup("");
 	line = get_next_line(fd);
@@ -33,15 +72,15 @@ void read_from_file(t_data *data, int fd)
 	add_spaces_to_map(data);
 }
 
-void init_data(int argc, char **argv, t_data *data)
+void	init_data(int argc, char **argv, t_data *data)
 {
-	int fd;
+	int	fd;
 
 	if (argc != 2)
 		error_and_exit(WRONG_ARG_NUM, data);
 	if (is_valid_extention(argv[1], ".cub", ft_strlen(".cub")) == -1)
 		error_and_exit(WRONG_EXTENTION, data);
-		fd = open(argv[1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error_and_exit(FILE_OPEN_FAILURE, data);
 	read_from_file(data, fd);
