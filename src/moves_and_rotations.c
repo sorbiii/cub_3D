@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:41:47 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/24 15:56:07 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/24 16:50:56 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ void	rotation_handler(int keycode, t_data *data)
 {
 	if (keycode == 65361)
 	{
-		dir_and_plank_update(data, -rot_speed);
+		dir_and_plank_update(data, -ROT_SPEED);
 	}
 	else if (keycode == 65363)
 	{
-		dir_and_plank_update(data, rot_speed);
+		dir_and_plank_update(data, ROT_SPEED);
 	}
 	return ;
 }
