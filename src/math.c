@@ -41,15 +41,29 @@ int	calculate_tex_x(t_texture *tex, t_ray *ray)
 	return (tex_x);
 }
 
-int	get_texture_color(t_data *d, t_ray *ray, int tex_y)
+int get_texture_color(t_data *d, t_ray *ray, int tex_y)
 {
-	t_texture	*tex;
-	int			tex_x;
-	char		*pixel;
+    t_texture   *tex;
+    int         tex_x;
+    char        *pixel;
 
-	tex = select_texture(d, ray);
-	tex_x = calculate_tex_x(tex, ray);
-	pixel = tex->addr + (tex_y * tex->line_size + tex_x
-			* (tex->bits_per_pixel / 8));
-	return (*(int *)pixel);
+    tex = select_texture(d, ray);
+    tex_x = calculate_tex_x(tex, ray);
+    
+    // Zabezpieczenie zmiennej tex_x (oś pozioma tekstury)
+    if (tex_x < 0)
+        tex_x = 0;
+    else if (tex_x >= tex->width)
+        tex_x = tex->width - 1;
+        
+    // Zabezpieczenie zmiennej tex_y (oś pionowa tekstury)
+    if (tex_y < 0)
+        tex_y = 0;
+    else if (tex_y >= tex->height)
+        tex_y = tex->height - 1;
+
+    pixel = tex->addr + (tex_y * tex->line_size + tex_x
+            * (tex->bits_per_pixel / 8));
+            
+    return (*(int *)pixel);
 }
