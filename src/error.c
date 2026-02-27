@@ -6,7 +6,7 @@
 /*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 16:12:29 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/27 14:27:28 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:41:41 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	error_and_exit(int i, t_data *data)
 	else if (i == WRONG_EXTENTION)
 		write(2, "WRONG EXTENTION\n", 16);
 	else if (i == WRONG_TEXTURE)
-		write(2, "SAME TEXTURES\n", 15);
+		write(2, "WRONG TEXTURE\n", 14);
 	else if (i == WRONG_RGB)
 		write(2, "WRONG RGB\n", 11);
 	else if (i == WRONG_TEXTURE_OR_COLOR)
@@ -84,4 +84,23 @@ int	rgb_connect_and_errors(char **nums, t_data *data, char *s, char **line)
 	result = (0 << 24) | (r << 16) | (g << 8) | (b);
 	free_double_arr(nums);
 	return (result);
+}
+
+void	destroy_mlx(t_data *data)
+{
+	if (!data || !data->mlx_info)
+		return ;
+	if (data->mlx_info->mlx)
+	{
+		destroy_textures(data);
+		if (data->mlx_info->img)
+			mlx_destroy_image(data->mlx_info->mlx, data->mlx_info->img);
+		if (data->mlx_info->win)
+			mlx_destroy_window(data->mlx_info->mlx, data->mlx_info->win);
+		mlx_destroy_display(data->mlx_info->mlx);
+		free(data->mlx_info->mlx);
+		data->mlx_info->mlx = NULL;
+	}
+	data->mlx_info->img = NULL;
+	data->mlx_info->win = NULL;
 }

@@ -3,41 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 15:57:12 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/24 16:19:29 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/27 16:46:27 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
+void	free_ptr(void **ptr)
+{
+	if (!ptr || !*ptr)
+		return ;
+	free(*ptr);
+	*ptr = NULL;
+}
+
 void	free_everything(t_data *data)
 {
 	if (!data)
 		return ;
-	free(data->north_texture);
-	free(data->south_texture);
-	free(data->west_texture);
-	free(data->east_texture);
+	destroy_mlx(data);
+	free_ptr((void **)&data->north_texture);
+	free_ptr((void **)&data->south_texture);
+	free_ptr((void **)&data->west_texture);
+	free_ptr((void **)&data->east_texture);
 	if (data->map)
+	{
 		free_double_arr(data->map);
-	free(data->line_map);
-	if (data->plr_info)
-	{
-		free(data->plr_info);
-		data->plr_info = NULL;
+		data->map = NULL;
 	}
-	if (data->ray_info)
-	{
-		free(data->ray_info);
-		data->ray_info = NULL;
-	}
-	if (data->mlx_info)
-	{
-		free(data->mlx_info);
-		data->mlx_info = NULL;
-	}
+	free_ptr((void **)&data->line_map);
+	free_ptr((void **)&data->plr_info);
+	free_ptr((void **)&data->ray_info);
+	free_ptr((void **)&data->keys);
+	free_ptr((void **)&data->mlx_info);
 	free(data);
 }
 

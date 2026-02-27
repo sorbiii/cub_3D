@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:56:51 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/27 14:02:55 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/27 16:42:10 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,14 @@ void	dir_and_plank_update(t_data *d, double rotspeed)
 		* cos_rot - d->plr_info->plane_y * sin_rot;
 	d->plr_info->plane_y = old_plane_x
 		* sin_rot + d->plr_info->plane_y * cos_rot;
+}
+
+void	null_struct(t_data *data)
+{
+	data->north_texture = NULL;
+	data->south_texture = NULL;
+	data->west_texture = NULL;
+	data->east_texture = NULL;
+	data->f_color = -1;
+	data->c_color = -1;
 }

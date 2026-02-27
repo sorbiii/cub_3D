@@ -37,6 +37,7 @@ void	check_texture_extention(t_data *data, char *s, char **line)
 		free(*line);
 		error_and_exit(FILE_OPEN_FAILURE, data);
 	}
+	close(fd);
 }
 
 int	same_textures(t_data *data)

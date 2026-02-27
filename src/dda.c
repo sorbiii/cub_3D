@@ -6,11 +6,30 @@
 /*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 14:27:23 by nadamczy          #+#    #+#             */
-/*   Updated: 2026/02/27 14:27:24 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:42:59 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
+
+void	math_init(t_data *data)
+{
+	data->mlx_info = calloc(1, sizeof(t_mlx));
+	if (!data->mlx_info)
+		error_and_exit(MALLOC_ERROR, data);
+	data->plr_info->p_dir_x = 0;
+	data->plr_info->p_dir_y = 0;
+	if (data->plr_facing == 'N')
+		data->plr_info->p_dir_y = -1;
+	else if (data->plr_facing == 'S')
+		data->plr_info->p_dir_y = 1;
+	else if (data->plr_facing == 'E')
+		data->plr_info->p_dir_x = 1;
+	else if (data->plr_facing == 'W')
+		data->plr_info->p_dir_x = -1;
+	data->plr_info->plane_x = -data->plr_info->p_dir_y * 0.66;
+	data->plr_info->plane_y = data->plr_info->p_dir_x * 0.66;
+}
 
 void	dda_utils(t_data *data, t_ray *ray)
 {

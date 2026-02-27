@@ -6,7 +6,7 @@
 /*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 14:27:09 by nadamczy          #+#    #+#             */
-/*   Updated: 2026/02/27 14:27:10 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:22:40 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,6 @@ int	close_window(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (data && data->mlx_info && data->mlx_info->mlx)
-	{
-		destroy_textures(data);
-		if (data->mlx_info->img)
-			mlx_destroy_image(data->mlx_info->mlx, data->mlx_info->img);
-		if (data->mlx_info->win)
-			mlx_destroy_window(data->mlx_info->mlx, data->mlx_info->win);
-		mlx_destroy_display(data->mlx_info->mlx);
-		free(data->mlx_info->mlx);
-		data->mlx_info->mlx = NULL;
-	}
-	free(data->keys);
 	free_everything(data);
 	exit(0);
 }

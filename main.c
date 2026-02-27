@@ -6,7 +6,7 @@
 /*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 14:28:06 by nadamczy          #+#    #+#             */
-/*   Updated: 2026/02/27 14:28:07 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:30:29 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	main(int argc, char **argv)
 	init_data(argc, argv, data);
 	map_checker(data);
 	math_init(data);
-	init_mlx(data);
+	init_mlx_display(data);
 	load_textures(data);
+	init_mlx_window(data);
 	main_loop(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/27 14:30:44 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:50:05 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,11 @@ typedef struct s_data
 }	t_data;
 
 // src/data_init.c
-void		init_data(int argc, char **argv, t_data *data);
-void		read_from_file(t_data *data, int fd);
-void		null_struct(t_data *data);
-void		math_init(t_data *data);
 void		init_mlx(t_data *data);
+void		init_mlx_display(t_data *data);
+void		init_mlx_window(t_data *data);
+void		read_from_file(t_data *data, int fd);
+void		init_data(int argc, char **argv, t_data *data);
 
 //src/map_parsing.c
 int			is_blank_line(const char *s);
@@ -181,8 +181,10 @@ void		error_and_exit(int i, t_data *data);
 int			rgb_error(int r, int g, int b, char **nums);
 int			rgb_connect_and_errors(char **nums,
 				t_data *data, char *s, char **line);
+void		destroy_mlx(t_data *data);
 
 //src/clean.c
+void		free_ptr(void **ptr);
 void		free_map_rows(char **new_map, int count);
 void		free_double_arr(char **arr);
 char		*str_whitespace_cleaner(t_data *data, char *s, int i);
@@ -199,6 +201,7 @@ int			is_valid_char(char c);
 char		**copy_map(t_data *map);
 int			is_valid(char c);
 void		dir_and_plank_update(t_data *d, double rotspeed);
+void		null_struct(t_data *data);
 
 //src/moves_and_rotations.c
 void		move_handler(int keycode, t_data *data);
@@ -219,6 +222,7 @@ void		move_right_and_left(double *x, double *y, int code, t_data *data);
 void		move_up_and_down(double *x, double *y, int code, t_data *data);
 
 //dda.c	
+void		math_init(t_data *data);
 void		dda_utils(t_data *data, t_ray *ray);
 void		dda_loop(t_data *data, t_ray *ray);
 void		dda_algorithm(t_data *data, t_ray *ray);
