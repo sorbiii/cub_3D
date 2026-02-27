@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:53:48 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/27 14:02:55 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/27 14:30:44 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ void		dda_loop(t_data *data, t_ray *ray);
 void		dda_algorithm(t_data *data, t_ray *ray);
 t_ray		dda_init(double rayX, double rayY, t_data *data);
 
-//src/math.c
+//src/load_textures.c
 void		load_single_texture(t_data *data, t_texture *tex, char *path);
 void		load_textures(t_data *data);
 int			calculate_tex_x(t_texture *tex, t_ray *ray);

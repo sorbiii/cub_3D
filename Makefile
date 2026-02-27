@@ -26,7 +26,7 @@ src/error.c \
 src/moves_and_rotations.c \
 src/moves_utils.c \
 src/render.c \
-src/math.c \
+src/load_textures.c \
 src/map_parsing.c \
 src/textures_colors_utils.c \
 src/dda.c
