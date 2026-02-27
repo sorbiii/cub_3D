@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   control.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 14:27:09 by nadamczy          #+#    #+#             */
-/*   Updated: 2026/02/27 14:27:10 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:16:09 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_key_press(int keycode, void *param)
 {
-	t_data	*data;
-
-	data = (t_data *)param;
 	if (keycode == 65307)
 		close_window(param);
 	return (0);

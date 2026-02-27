@@ -1,7 +1,11 @@
-NAME = cub_3d
+# Zgodnie z PDF, nazwa musi być cub3D
+NAME = cub3D
 
-CC = gcc
-CFLAGS = -g -I includes -I includes/libft -fPIE  -O3
+# 42 preferuje użycie cc
+CC = cc
+
+# OBOWIĄZKOWE flagi 42 dodane na początek
+CFLAGS = -Wall -Wextra -Werror -g -I includes -I includes/libft -fPIE -O3
 
 LIBFT_DIR = includes/libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -9,7 +13,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a
 
-MLX_FLAGS = -lXext -lX11 -lm
+MLX_FLAGS = -lXext -lX11 -lm -lz -lbsd
 
 OBJ_DIR = obj
 
@@ -33,15 +37,17 @@ src/dda.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-all: $(LIBFT) $(MLX_LIB) $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS)
+# $(NAME) teraz jawnie zależy od bibliotek, co naprawia ewentualne problemy z linkowaniem
+$(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Reguły do budowy bibliotek
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
@@ -50,7 +56,7 @@ $(MLX_LIB):
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
+	@if [ -d "$(MLX_DIR)" ]; then $(MAKE) -C $(MLX_DIR) clean; fi
 	rm -rf $(OBJ_DIR)
 
 fclean: clean

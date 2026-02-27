@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 16:12:29 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/27 14:27:28 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:25:59 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,27 @@ void	error_and_exit(int i, t_data *data)
 {
 	free_everything(data);
 	if (i == INCORRECT_CHAR)
-		write(2, "INCORRECT CHAR\n", 15);
+		ft_putstr_fd("INCORRECT CHAR\n", 2);
 	else if (i == MALLOC_ERROR)
-		write(2, "MALLOC ERROR\n", 14);
+		ft_putstr_fd("MALLOC ERROR\n", 2);
 	else if (i == TOO_MANY_PLRS)
-		write(2, "WRONG AMOUNT OF PLAYERS\n", 25);
+		ft_putstr_fd("WRONG AMOUNT OF PLAYERS\n", 2);
 	else if (i == MAP_ERROR)
-		write(2, "MAP UNCLOSED\n", 13);
+		ft_putstr_fd("MAP UNCLOSED\n", 2);
 	else if (i == FILE_OPEN_FAILURE)
-		write(2, "ERROR WHILE OPENING FILE\n", 25);
+		ft_putstr_fd("ERROR WHILE OPENING FILE\n", 2);
 	else if (i == WRONG_ARG_NUM)
-		write(2, "WRONG NUMBER OF ARGUMENTS\n", 26);
+		ft_putstr_fd("WRONG NUMBER OF ARGUMENTS\n", 2);
 	else if (i == WRONG_EXTENTION)
-		write(2, "WRONG EXTENTION\n", 16);
+		ft_putstr_fd("WRONG EXTENTION\n", 2);
 	else if (i == WRONG_TEXTURE)
-		write(2, "SAME TEXTURES\n", 15);
+		ft_putstr_fd("SAME TEXTURES\n", 2);
 	else if (i == WRONG_RGB)
-		write(2, "WRONG RGB\n", 11);
+		ft_putstr_fd("WRONG RGB\n", 2);
 	else if (i == WRONG_TEXTURE_OR_COLOR)
-		write(2, "WRONG TEXTURE OR COLOR\n", 24);
+		ft_putstr_fd("WRONG TEXTURE OR COLOR\n", 2);
 	else if (i == MLX_ERROR)
-		write(2, "MLX ERROR\n", 10);
+		ft_putstr_fd("MLX ERROR\n", 2);
 	exit(-1);
 }
 

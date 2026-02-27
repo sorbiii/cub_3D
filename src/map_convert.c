@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_convert.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 14:27:40 by nadamczy          #+#    #+#             */
-/*   Updated: 2026/02/27 14:27:41 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:17:18 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	pad_map_lines(t_data *data, int max_w)
 	{
 		padded = ft_calloc(max_w + 1, sizeof(char));
 		ft_strlcpy(padded, data->map[i], max_w + 1);
-		while (ft_strlen(padded) < max_w)
+		while ((int)ft_strlen(padded) < max_w)
 			ft_strlcat(padded, " ", max_w + 1);
 		free(data->map[i]);
 		data->map[i] = padded;
