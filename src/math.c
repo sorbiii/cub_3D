@@ -8,6 +8,8 @@ void	load_single_texture(t_data *data, t_texture *tex, char *path)
 		error_and_exit(WRONG_TEXTURE, data);
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bits_per_pixel,
 			&tex->line_size, &tex->endian);
+	// if (!tex->addr)
+	// 	error_and_exit(WRONG_TEXTURE, data);
 }
 
 void	load_textures(t_data *data)
@@ -48,6 +50,8 @@ int	get_texture_color(t_data *d, t_ray *ray, int tex_y)
 	char		*pixel;
 
 	tex = select_texture(d, ray);
+	// if (!tex || !tex->addr)
+	// 	return (0xAAAAAA);
 	tex_x = calculate_tex_x(tex, ray);
 	pixel = tex->addr + (tex_y * tex->line_size + tex_x
 			* (tex->bits_per_pixel / 8));

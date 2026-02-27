@@ -1,8 +1,8 @@
 #include "includes/cube.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = calloc(1, sizeof(t_data));
 	if (!data)
@@ -23,11 +23,10 @@ int	main_loop(t_data *data)
 	data->keys = calloc(1, sizeof(t_keys));
 	if (!data->ray_info || !data->keys)
 		error_and_exit(MALLOC_ERROR, data);
-	mlx_hook(data->mlx_info->win, 2, 1L<<0, handler, data);
-	mlx_hook(data->mlx_info->win, 3, 1L<<1, key_release, data);
+	mlx_hook(data->mlx_info->win, 2, 1L << 0, handler, data);
+	mlx_hook(data->mlx_info->win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx_info->win, 17, 0, close_window, data);
 	mlx_loop_hook(data->mlx_info->mlx, game_loop, data);
 	mlx_loop(data->mlx_info->mlx);
 	return (0);
 }
-
