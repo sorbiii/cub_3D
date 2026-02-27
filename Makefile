@@ -25,7 +25,6 @@ src/map_convert.c \
 src/error.c \
 src/moves_and_rotations.c \
 src/moves_utils.c \
-src/win_utils.c \
 src/render.c \
 src/math.c \
 src/map_parsing.c \

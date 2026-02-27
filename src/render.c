@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorbi <sorbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 16:08:22 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/24 16:48:19 by sorbi            ###   ########.fr       */
+/*   Updated: 2026/02/27 14:22:27 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	render(t_data *d)
 	return (0);
 }
 
-static void	get_draw_range(double wall_height, int *draw_start, int *draw_end)
+void	get_draw_range(double wall_height, int *draw_start, int *draw_end)
 {
 	*draw_start = -wall_height / 2 + HEIGHT / 2;
 	if (*draw_start < 0)
@@ -43,7 +43,7 @@ static void	get_draw_range(double wall_height, int *draw_start, int *draw_end)
 		*draw_end = HEIGHT - 1;
 }
 
-static void	draw_column_pixels(t_data *d, t_ray *ray, int x, int *range)
+void	draw_column_pixels(t_data *d, t_ray *ray, int x, int *range)
 {
 	int		y;
 	double	wall_height;
@@ -81,4 +81,16 @@ void	dda_and_pixel_put(double rayX, double rayY, t_data *d, int x)
 	wall_height = HEIGHT / ray.perp_wall_dist;
 	get_draw_range(wall_height, &range[0], &range[1]);
 	draw_column_pixels(d, &ray, x, range);
+}
+
+void	ft_put_pixel(int x, int y, int color, t_data *d)
+{
+	char	*dst;
+
+	if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
+		return ;
+	dst = d->mlx_info->data_addr
+		+ (y * d->mlx_info->line_size) + (x * d->mlx_info->converted_bits_x);
+	*(int *)dst = color;
+	return ;
 }
