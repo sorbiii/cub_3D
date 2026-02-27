@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 16:12:29 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/27 16:25:59 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/27 16:33:56 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	error_and_exit(int i, t_data *data)
 	exit(-1);
 }
 
-int	rgb_connect_and_errors(char **nums, t_data *data, char *s, char **line)
+	int	rgb_connect_and_errors(char **nums, t_data *data, char *s, char **line)
 {
 	int	r;
 	int	g;
