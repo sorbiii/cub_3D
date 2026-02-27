@@ -1,12 +1,10 @@
-   WE                             wall_4.xpm
-NO      wall_3.xpm   
-   
-
-SO wall_2.xpm
+NO textures/north.xpm
+SO textures/south.xpm
+WE textures/west.xpm
+EA textures/east.xpm
 
 F      173,    99,     64                                      
-
-EA wall_1.xpm                                
+                             
                          
 C 22, 12, 200
 
