@@ -6,7 +6,7 @@
 /*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 14:28:00 by nadamczy          #+#    #+#             */
-/*   Updated: 2026/02/27 14:28:01 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:33:10 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ void	textures_to_struct(t_data *data, char **line,
 
 	if (!num_of_elems || !texture || !line || !*line)
 		error_and_exit(MAP_ERROR, data);
+	if (*texture)
+	{
+		free(*texture);
+		*texture = NULL;
+	}
 	val = trim_spaces((*line) + 2);
 	if (val)
 		*texture = ft_strdup(val);

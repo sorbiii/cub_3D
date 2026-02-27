@@ -6,7 +6,7 @@
 /*   By: nadamczy <nadamczy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 14:27:14 by nadamczy          #+#    #+#             */
-/*   Updated: 2026/02/27 14:27:15 by nadamczy         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:33:12 by nadamczy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	check_texture_extention(t_data *data, char *s, char **line)
 		free(*line);
 		error_and_exit(FILE_OPEN_FAILURE, data);
 	}
+	close(fd);
 }
 
 int	same_textures(t_data *data)
