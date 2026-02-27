@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 16:12:29 by mzapora           #+#    #+#             */
-/*   Updated: 2026/02/27 16:33:56 by mzapora          ###   ########.fr       */
+/*   Updated: 2026/02/27 17:21:54 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,20 @@
 int	rgb_error(int r, int g, int b, char **nums)
 {
 	int	i;
+	int	j;
 
+	if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0)
+		return (1);
 	i = 0;
-	if (r > 255 || r < 0)
-		return (1);
-	if (g > 255 || g < 0)
-		return (1);
-	if (b > 255 || b < 0)
-		return (1);
 	while (i < 3)
 	{
-		if (nums[0][i] && (nums[0][i] > '9' || nums[0][i] < '0'))
-			return (1);
-		if (nums[1][i] && (nums[1][i] > '9' || nums[1][i] < '0'))
-			return (1);
-		if (nums[2][i] && (nums[2][i] > '9' || nums[2][i] < '0'))
-			return (1);
+		j = 0;
+		while (nums[i][j])
+		{
+			if (nums[i][j] != '\n' && (nums[i][j] > '9' || nums[i][j] < '0'))
+				return (1);
+			j++;
+		}
 		i++;
 	}
 	return (0);
@@ -64,7 +62,7 @@ void	error_and_exit(int i, t_data *data)
 	exit(-1);
 }
 
-	int	rgb_connect_and_errors(char **nums, t_data *data, char *s, char **line)
+int	rgb_connect_and_errors(char **nums, t_data *data, char *s, char **line)
 {
 	int	r;
 	int	g;
