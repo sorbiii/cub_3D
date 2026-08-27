@@ -9,7 +9,7 @@ cub3D is a 42 school project designed to create a 3D perspective maze exploratio
 
 ### Prerequisites
 To compile and run this project, especially on Linux environments (like Fedora), you will need standard C compilation tools and the dependencies required by MiniLibX:
-* `minilibx: https://github.com/42paris/minilibx-linux.git` *
+* `git clone --recursive https://github.com/sorbiii/cub_3D.git` *
 * `make` and `cc`
 * X11 development headers (e.g., `libxext-dev`, `libx11-dev`)
 * `libbsd` and `zlib`
